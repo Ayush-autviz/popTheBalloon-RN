@@ -7,6 +7,7 @@ const scale = width / BASE_WIDTH;
 const scaled = (size: number): number => Math.round(size * scale);
 
 export interface Typography {
+  xsmall: number;
   small: number;
   body: number;
   subtitle: number;
@@ -17,6 +18,7 @@ export interface Typography {
 }
 
 const typography: Typography = {
+  xsmall: scaled(11),
   small: scaled(12),
   body: scaled(14),
   subtitle: scaled(16),

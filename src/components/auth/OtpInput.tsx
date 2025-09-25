@@ -84,7 +84,7 @@ const OtpInput: React.FC<OtpInputProps> = ({
 
 const styles = StyleSheet.create({
     text: {
-        marginTop: spacing.xl,
+        marginTop: spacing.xxl,
         color: colors.textPrimary,
         fontWeight: '500'
     },

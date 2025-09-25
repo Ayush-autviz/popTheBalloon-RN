@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     padding: spacing.xs,
   },
   iconPlaceholder: {
-    width: spacing.xxl, // To keep spacing consistent
+    width: spacing.xxxl, // To keep spacing consistent
   },
 })
 

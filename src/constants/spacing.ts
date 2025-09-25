@@ -15,6 +15,7 @@ export interface Spacing {
   lg: number;
   xl: number;
   xxl: number;
+  xxxl: number;
   large: number;
   xlarge: number;
   jumbo: number;
@@ -30,8 +31,9 @@ const spacing: Spacing = {
   sm: scaled(8),
   md: scaled(12),
   lg: scaled(16),
-  xl: scaled(24),
-  xxl: scaled(32), 
+  xl: scaled(20),
+  xxl: scaled(24),
+  xxxl: scaled(32),
 
   large: scaled(40),
   xlarge: scaled(48),

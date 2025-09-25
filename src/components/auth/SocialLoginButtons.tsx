@@ -13,8 +13,8 @@ export default function SocialLoginButtons() {
         <View style={styles.container}>
             <Text style={styles.text}>Or continue with</Text>
 
-            <Button variant='grey' icon={googleIcon} text='Continue with Google' onPress={() => { }} />
-            <Button variant='grey' icon={appleIcon} text='Continue with Apple' onPress={() => { }} />
+            <Button variant='grey' image={googleIcon} text='Continue with Google' onPress={() => { }} />
+            <Button variant='grey' image={appleIcon} text='Continue with Apple' onPress={() => { }} />
 
         </View>
     )

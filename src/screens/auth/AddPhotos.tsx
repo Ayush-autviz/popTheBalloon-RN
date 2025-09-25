@@ -28,8 +28,8 @@ export default function AddPhotos() {
                 <ImagePicker images={[]} onPress={() => {}} />
 
                 <View style={styles.buttonsContainer} >
-                    <Button variant='outline' text='Camera' icon={cameraIcon} style={{width: '48%'}}/>
-                    <Button variant='outline' text='Gallery' icon={picturesIcon} style={{width: '48%'}} />
+                    <Button variant='outline' text='Camera' image={cameraIcon} style={{width: '48%'}}/>
+                    <Button variant='outline' text='Gallery' image={picturesIcon} style={{width: '48%'}} />
                 </View>
 
             </View>

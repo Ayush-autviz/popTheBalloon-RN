@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
         padding: 1.5,
     },
     checkbox: {
-        height: spacing.xl,
-        width: spacing.xl,
+        height: spacing.xxl,
+        width: spacing.xxl,
         borderRadius: 5,
         backgroundColor: '#fff',
         justifyContent: 'center',

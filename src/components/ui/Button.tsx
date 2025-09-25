@@ -14,6 +14,7 @@ import spacing from '../../constants/spacing'
 import typography from '../../constants/typography'
 import colors from '../../constants/color'
 import TextGradient from './TextGradient'
+import { Star, X } from 'lucide-react-native'
 
 type ButtonProps = {
   text?: string
@@ -21,23 +22,27 @@ type ButtonProps = {
   style?: ViewStyle
   textStyle?: TextStyle
   variant?: 'gradient' | 'grey' | 'partner' | 'outline' | 'ghost'
-  icon?: ImageSourcePropType
+  image?: ImageSourcePropType,
+  icon?: 'cross' | 'star'
+  pop?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
-  text = 'Become Partners',
+  text,
   onPress,
   style,
   textStyle,
   variant = 'gradient',
-  icon
+  image,
+  icon,
+  pop = false
 }) => {
 
   if (variant === 'grey' || variant === 'ghost') {
     return (
       <TouchableOpacity style={[styles.greyButton, styles.base, style, variant === 'ghost' && styles.ghostButton]} onPress={onPress} activeOpacity={0.8}>
-        {icon &&
-          <Image source={icon} style={styles.image} resizeMode='contain' />
+        {image &&
+          <Image source={image} style={styles.image} resizeMode='contain' />
         }
         <Text
           style={[
@@ -59,9 +64,11 @@ const Button: React.FC<ButtonProps> = ({
           colors={colors.gradientPrimary}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          style={[styles.base, style]}
+          style={[styles.base, style, pop && {paddingHorizontal: spacing.xl, paddingVertical: spacing.xl, borderRadius: spacing.large}]}
         >
-          <Text style={[styles.text, textStyle]}>{text}</Text>
+          {pop && <Image source={require('../../assets/icons/pop.png')} style={{width: spacing.large, aspectRatio: 1}} /> }
+
+         {text && <Text style={[styles.text, textStyle]}>{text}</Text> }
         </LinearGradient>
       </TouchableOpacity>
     )
@@ -74,18 +81,21 @@ const Button: React.FC<ButtonProps> = ({
         colors={colors.gradientPrimary}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={[styles.gradientBorder, style]}
+        style={[styles.gradientBorder, style, icon && {borderRadius: 28}]}
       >
-        <TouchableOpacity onPress={onPress} style={[styles.innerContainer, { backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB' }]}>
-          <Image source={variant === 'partner' ? partnerImage : icon} style={styles.image} resizeMode='contain' />
+        <TouchableOpacity onPress={onPress} style={[styles.innerContainer, { backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB' }, icon && styles.icon]}>
+          {(variant === 'partner' || image) && <Image source={variant === 'partner' ? partnerImage : image} style={styles.image} resizeMode='contain' />}
+          {icon === 'cross' && <X color={colors.textTertiary}/>}
+          {icon === 'star' && <Star fill={'gold'}  color={'gold'}/>}
+          {(variant === 'partner' || text) &&
           <TextGradient
             style={styles.gradientText}
             locations={[0, 1]}
             colors={colors.gradientPrimary}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            text={text}
-          />
+            text={text ? text : 'Become Partners'}
+          />}
         </TouchableOpacity>
       </LinearGradient>
     )
@@ -129,7 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   image: {
-    width: spacing.xl,
+    width: spacing.xxl,
     aspectRatio: 1
   },
   gradientBorder: {
@@ -146,6 +156,11 @@ const styles = StyleSheet.create({
     gap: 5,
     justifyContent: 'center'
   },
+  icon: {
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.lg,
+    borderRadius: 28
+  }
 })
 
 export default Button

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
     minutes: {
         fontWeight: '500',
-        marginTop: spacing.xl
+        marginTop: spacing.xxl
     },
     recordText: {
         textAlign: 'center',
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
     },
     recordButton: {
         marginHorizontal: 'auto',
-        paddingHorizontal: spacing.xl,
-        borderRadius: spacing.xl
+        paddingHorizontal: spacing.xxl,
+        borderRadius: spacing.xxl
     },
     footer: {
         padding: spacing.screenPadding,
