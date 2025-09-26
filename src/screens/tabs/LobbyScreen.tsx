@@ -8,9 +8,15 @@ import Search from '../../components/ui/Search'
 import TimeTabs from '../../components/datingLobby/TimeTabs'
 import LobbyCards from '../../components/datingLobby/LobbyCards'
 import Button from '../../components/ui/Button'
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function LobbyScreen() {
+const navigation = useNavigation()
+  const handleCreateLobby = () => {
+    navigation.navigate('App', {Screen: 'CreateLobby'})
+  }
+
   return (
     <SafeAreaView style={styles.main}>
       <Header text='Dating Lobby' />
@@ -22,7 +28,7 @@ export default function LobbyScreen() {
           <LobbyCards />
         </ScrollView>
         
-        <Button style={{}} text='Create Lobby' />
+        <Button onPress={handleCreateLobby} style={{}} text='Create Lobby' />
       </View>
 
     </SafeAreaView>

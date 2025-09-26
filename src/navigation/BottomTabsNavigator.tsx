@@ -4,13 +4,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SvgXml } from 'react-native-svg';
 
 import colors from '../constants/color';
-import Home from '../screens/app/HomeScreen';
 import { ChatFocusedIcon, ChatIcon, HomeFocusedIcon, HomeIcon, UserFocusedIcon, UserIcon, UsersFocusedIcon, UsersIcon } from '../constants/svg';
-import LobbyScreen from '../screens/app/LobbyScreen';
-import ChatScreen from '../screens/app/ChatScreen';
-import ProfileScreen from '../screens/app/ProfileScreen';
+
 import typography from '../constants/typography';
 import TextGradient from '../components/ui/TextGradient';
+
+import LobbyScreen from '../screens/tabs/LobbyScreen';
+import ChatScreen from '../screens/tabs/ChatScreen';
+import ProfileScreen from '../screens/tabs/ProfileScreen';
+import HomeScreen from '../screens/tabs/HomeScreen';
 
 export type BottomTabParamList = {
     Home: undefined;
@@ -68,7 +70,7 @@ export default function BottomTabsNavigator() {
                   ),
             })}
         >
-            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Lobby" component={LobbyScreen} />
             <Tab.Screen name="Chat" component={ChatScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
