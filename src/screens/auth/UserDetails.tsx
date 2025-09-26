@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: spacing.screenPadding,
         backgroundColor: colors.background,
-        paddingTop: spacing.xxl
+        paddingTop: spacing.xxxl
     },
     heading: {
         fontSize: typography.title,
         fontWeight: 700,
-        marginBottom: spacing.xl
+        marginBottom: spacing.xxxl
     },
     locationContainer: {
         flexDirection: 'row',

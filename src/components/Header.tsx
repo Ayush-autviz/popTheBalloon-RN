@@ -37,6 +37,7 @@ import spacing from '../constants/spacing'
 import colors from '../constants/color'
 import typography from '../constants/typography'
 import { useNavigation } from '@react-navigation/native'
+import { ArrowLeft } from 'lucide-react-native'
 // import Icon from 'react-native-vector-icons/Ionicons' // Or any icon library you prefer
 
 
@@ -66,9 +67,9 @@ const onBackPress = () => {
   return (
     <View style={[styles.container, containerStyle]}>
       {backButton ? (
-        <TouchableOpacity onPress={onBackPress} style={styles.iconButton}>
-            <Text>s</Text>
-          {/* <Icon name="chevron-back" size={24} color={colors.textPrimary} /> */}
+        <TouchableOpacity onPress={onBackPress} style={styles.iconPlaceholder} >
+            <ArrowLeft size={typography.secondaryTitle} strokeWidth={2.5}  />
+          
         </TouchableOpacity>
       ) : (
         <View style={styles.iconPlaceholder} />
@@ -79,8 +80,7 @@ const onBackPress = () => {
       </Text>
 
       {settingButton ? (
-        <TouchableOpacity onPress={onSettingPress} style={styles.iconButton}>
-          {/* <Icon name="settings-outline" size={22} color={colors.textPrimary} /> */}
+        <TouchableOpacity onPress={onSettingPress} style={styles.iconPlaceholder}>
           <Text>csa</Text>
         </TouchableOpacity>
       ) : (
@@ -101,16 +101,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: typography.secondaryTitle,
-    fontWeight: '700',
+    fontWeight: '600',
     color: colors.textPrimary,
     textAlign: 'center',
     flex: 1,
   },
   iconButton: {
-    padding: spacing.xs,
+    // padding: spacing.xs,
   },
   iconPlaceholder: {
-    width: spacing.xxxl, // To keep spacing consistent
+    width: spacing.xxxl,
   },
 })
 

@@ -10,14 +10,14 @@ export interface OnboardingStep {
 export const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
-    title: "Welcome to \nPop the Balloon",
+    title: "Welcome to \nPop the Ballon",
     description: "Experience a unique dating journey where connections are made through shared interests and playful interactions.",
     imageSource: require('../../assets/images/onboarding/onboarding1.png'), 
   },
   {
     id: 2,
-    title: "Swipe to Pop Balloons",
-    description: "Swipe to pop balloons and reveal profiles. Match with someone you like and start chatting!",
+    title: "Swipe to Pop Ballons",
+    description: "Swipe to pop ballons and reveal profiles. Match with someone you like and start chatting!",
     imageSource: require('../../assets/images/onboarding/onboarding2.png'), 
   },
   {

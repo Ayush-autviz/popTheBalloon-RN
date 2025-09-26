@@ -5,6 +5,8 @@ import colors from '../../constants/color'
 import QuickStats from '../../components/home/QuickStats'
 import spacing from '../../constants/spacing'
 import ProfileInfo from '../../components/home/ProfileInfo'
+import FeaturedLobbies from '../../components/home/FeaturedLobbies'
+import RecentActivity from '../../components/home/RecentActivity'
 
 export default function HomeScreen() {
   return (
@@ -12,6 +14,8 @@ export default function HomeScreen() {
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <QuickStats />
         <ProfileInfo />
+        <FeaturedLobbies />
+        <RecentActivity />
       </ScrollView>
     </SafeAreaView>
   )

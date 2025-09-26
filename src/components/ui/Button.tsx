@@ -25,6 +25,7 @@ type ButtonProps = {
   image?: ImageSourcePropType,
   icon?: 'cross' | 'star'
   pop?: boolean
+  rounded?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -35,7 +36,8 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'gradient',
   image,
   icon,
-  pop = false
+  pop = false,
+  rounded = false
 }) => {
 
   if (variant === 'grey' || variant === 'ghost') {
@@ -81,12 +83,12 @@ const Button: React.FC<ButtonProps> = ({
         colors={colors.gradientPrimary}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={[styles.gradientBorder, style, icon && {borderRadius: 28}]}
+        style={[styles.gradientBorder, style, icon && {borderRadius: 28}, rounded && {borderRadius: 30}]}
       >
-        <TouchableOpacity onPress={onPress} style={[styles.innerContainer, { backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB' }, icon && styles.icon]}>
+        <TouchableOpacity onPress={onPress} style={[styles.innerContainer, { backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB' }, icon && styles.icon, rounded && {borderRadius: 29, paddingVertical: 5}, style]}>
           {(variant === 'partner' || image) && <Image source={variant === 'partner' ? partnerImage : image} style={styles.image} resizeMode='contain' />}
           {icon === 'cross' && <X color={colors.textTertiary}/>}
-          {icon === 'star' && <Star fill={'gold'}  color={'gold'}/>}
+          {icon === 'star' && <Star fill={'#EFAC4E'}  color={'#EFAC4E'}/>}
           {(variant === 'partner' || text) &&
           <TextGradient
             style={styles.gradientText}
