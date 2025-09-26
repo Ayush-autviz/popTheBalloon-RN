@@ -8,6 +8,7 @@ type ColorPalette = {
     background: string
     backgroundPrimary: string
     backgroundSecondary: string
+    backgroundTertiary: string
     surface: string
   
     // Text
@@ -63,6 +64,7 @@ const colors: ColorPalette = {
   background: '#FFFFFF',
   backgroundPrimary: '#FFEFF3',
   backgroundSecondary: '#FDF5F7',
+  backgroundTertiary: '#F6F6F6',
   surface: '#FAFAFA',
 
   // Text

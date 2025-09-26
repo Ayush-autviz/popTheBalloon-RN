@@ -1,4 +1,4 @@
-import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import spacing from '../../constants/spacing'
@@ -8,6 +8,7 @@ import colors from '../../constants/color'
 import GradientDropdown from '../../components/ui/Dropdown'
 import Button from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
+import GradientSwitch from '../../components/ui/GradientSwitch'
 
 export default function UserDetails() {
     const navigation = useNavigation()
@@ -47,10 +48,7 @@ export default function UserDetails() {
 
             <View style={styles.locationContainer}>
                 <Text style={styles.text}>Use my current location</Text>
-                <Switch 
-                trackColor={{false: '#F0F2F5', true: '#F0F2F5'}}
-                thumbColor='#fff'
-                />
+                <GradientSwitch value={false} onValueChange={() => {}} />
             </View>
 
             <Button variant='gradient' text='Continue' onPress={handleContinue} />
