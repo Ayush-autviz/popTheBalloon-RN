@@ -15,6 +15,8 @@ import typography from '../../constants/typography'
 import colors from '../../constants/color'
 import TextGradient from './TextGradient'
 import { Star, X } from 'lucide-react-native'
+import { SvgXml } from 'react-native-svg'
+import { PopIcon } from '../../constants/svg'
 
 type ButtonProps = {
   text?: string
@@ -68,7 +70,10 @@ const Button: React.FC<ButtonProps> = ({
           end={{ x: 1, y: 0 }}
           style={[styles.base, style, pop && {paddingHorizontal: spacing.xl, paddingVertical: spacing.xl, borderRadius: spacing.large}]}
         >
-          {pop && <Image source={require('../../assets/icons/pop.png')} style={{width: spacing.large, aspectRatio: 1}} /> }
+          {/* {pop && <Image source={require('../../assets/icons/pop.png')} style={{width: spacing.large, aspectRatio: 1}} /> } */}
+
+          {pop && <SvgXml xml={PopIcon} style={styles.icon} />}
+
 
          {text && <Text style={[styles.text, textStyle]}>{text}</Text> }
         </LinearGradient>
@@ -85,7 +90,7 @@ const Button: React.FC<ButtonProps> = ({
         end={{ x: 1, y: 0 }}
         style={[styles.gradientBorder, style, icon && {borderRadius: 28}, rounded && {borderRadius: 30}]}
       >
-        <TouchableOpacity onPress={onPress} style={[styles.innerContainer, { backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB' }, icon && styles.icon, rounded && {borderRadius: 29, paddingVertical: 5}, style]}>
+        <TouchableOpacity onPress={onPress} style={[styles.innerContainer, { backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB'}, icon && styles.icon, rounded && {borderRadius: 29, paddingVertical: 5}]}>
           {(variant === 'partner' || image) && <Image source={variant === 'partner' ? partnerImage : image} style={styles.image} resizeMode='contain' />}
           {icon === 'cross' && <X color={colors.textTertiary}/>}
           {icon === 'star' && <Star fill={'#EFAC4E'}  color={'#EFAC4E'}/>}

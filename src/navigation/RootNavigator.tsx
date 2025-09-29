@@ -23,5 +23,6 @@ export default function RootNavigator() {
                 <Stack.Screen name='App' component={AppNavigator} />
             </Stack.Navigator>
         </NavigationContainer>
+
     )
 }

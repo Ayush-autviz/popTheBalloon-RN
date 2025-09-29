@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import typography from '../../../constants/typography'
 import spacing from '../../../constants/spacing'
 import colors from '../../../constants/color'
+import ImagePicker from '../../ui/ImagePicker'
 
 type ThemeItem = { id: string; image: ImageSourcePropType }
 
@@ -48,7 +49,7 @@ export default function CreateLobby2() {
         data={data}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        scrollEnabled={false}
+        scrollEnabled={true}
         contentContainerStyle={styles.listContainer}
         renderItem={({ item, index }) => (
           <TouchableOpacity
@@ -60,6 +61,10 @@ export default function CreateLobby2() {
           </TouchableOpacity>
         )}
       />
+
+      <Text style={styles.heading}>Upload Image</Text>
+
+      <ImagePicker images={''} maxImages={1} onPress={() => {}} boxStyle={styles.box}/>
     </View>
   )
 }
@@ -67,7 +72,7 @@ export default function CreateLobby2() {
 const styles = StyleSheet.create({
     heading: {
         fontWeight: '600',
-        fontSize: typography.secondaryTitle
+        fontSize: typography.subtitle
     },
     listContainer: {
         marginTop: spacing.lg,
@@ -99,5 +104,10 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+    },
+    box: {
+      width: (spacing.screenWidth / 2) - spacing.screenPadding - spacing.sm,
+      aspectRatio: 1,
+      flex: 0
     }
 })

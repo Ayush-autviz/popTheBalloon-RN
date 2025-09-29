@@ -34,6 +34,16 @@ export default function CreateLobby3() {
             </View>
             </View>
             <GradientSlider value={20} onValueChange={() => {}} />
+
+            <Text style={styles.heading}>Interest Limit</Text>
+
+            <View style={styles.rowContainer}>
+            <Text style={styles.subheading}>Max Participants</Text>
+            <View style={styles.box}>
+                <Text>100</Text>
+            </View>
+            </View>
+            <GradientSlider value={20} onValueChange={() => {}} />
         </View>
     )
 }

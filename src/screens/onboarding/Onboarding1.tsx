@@ -29,7 +29,7 @@ export default function Onboarding1() {
       </TouchableOpacity>
 
       <View style={styles.content}>
-        <Image source={imageSource} resizeMode='cover' style={styles.image} />
+        <Image source={imageSource} resizeMode='contain' style={styles.image} />
         <View>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
