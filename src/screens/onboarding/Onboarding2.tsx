@@ -8,8 +8,8 @@ import GradientButton from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
 import colors from '../../constants/color'
 
-export default function Onboarding2() {
-  const navigation = useNavigation()
+export default function Onboarding2(): React.ReactElement {
+  const navigation = useNavigation<any>()
   const handleNext = () => {
     navigation.navigate('Onboarding3')
   }

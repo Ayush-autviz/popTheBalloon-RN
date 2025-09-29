@@ -11,8 +11,8 @@ import GradientCheckbox from '../../components/ui/Checkbox'
 import GradientProgressBar from '../../components/ui/ProgressBar'
 import { useNavigation } from '@react-navigation/native'
 
-export default function Signup() {
-  const navigation = useNavigation()
+export default function Signup(): React.ReactElement {
+  const navigation = useNavigation<any>()
 
   const handleSignup = () => {
     navigation.navigate('AddPhotos')

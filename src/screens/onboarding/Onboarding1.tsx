@@ -9,10 +9,10 @@ import { useNavigation } from '@react-navigation/native'
 import { onboardingSteps } from '../../constants/onboarding/onboardingSteps'
 import colors from '../../constants/color'
 
-export default function Onboarding1() {
+export default function Onboarding1(): React.ReactElement {
   const [currentStep, setcurrentStep] = useState<number>(0)
   const {title, description, imageSource} = onboardingSteps[currentStep]
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>()
 
   const handleNext = () => {
     if (currentStep < onboardingSteps.length - 1) {

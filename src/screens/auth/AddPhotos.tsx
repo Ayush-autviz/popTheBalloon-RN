@@ -6,11 +6,11 @@ import spacing from '../../constants/spacing'
 import colors from '../../constants/color'
 import typography from '../../constants/typography'
 import Button from '../../components/ui/Button'
-import ImagePicker from '../../components/auth/ImagePicker'
+import ImagePicker from '../../components/ui/ImagePicker'
 import { useNavigation } from '@react-navigation/native'
 
-export default function AddPhotos() {
-    const navigation = useNavigation()
+export default function AddPhotos(): React.ReactElement {
+    const navigation = useNavigation<any>()
     const cameraIcon = require('../../assets/icons/camera.png')
     const picturesIcon = require('../../assets/icons/pictures.png')
 

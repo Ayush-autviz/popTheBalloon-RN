@@ -10,8 +10,8 @@ import Button from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
 import GradientSwitch from '../../components/ui/GradientSwitch'
 
-export default function UserDetails() {
-    const navigation = useNavigation()
+export default function UserDetails(): React.ReactElement {
+    const navigation = useNavigation<any>()
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState<string | number | null>(null)
     const [items, setItems] = useState([

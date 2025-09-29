@@ -10,7 +10,7 @@ import GradientProgressBar from '../../components/ui/ProgressBar'
 import Button from '../../components/ui/Button'
 import { ChevronRight } from 'lucide-react-native'
 
-export default function AboutYourself() {
+export default function AboutYourself(): React.ReactElement {
     return (
         <SafeAreaView style={styles.main}>
             <Header text='About Yourself' />

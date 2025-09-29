@@ -1,6 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CreateDatingLobby from '../screens/app/CreateDatingLobby'
+import LobbyDetails from '../screens/app/LobbyDetails'
 
 
 export default function AppNavigator() {
@@ -9,7 +10,8 @@ export default function AppNavigator() {
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='CreateDatingLobby' component={CreateDatingLobby} />
+            <Stack.Screen name='CreateLobby' component={CreateDatingLobby} />
+            <Stack.Screen name='LobbyDetails' component={LobbyDetails} />
         </Stack.Navigator>
     )
 }

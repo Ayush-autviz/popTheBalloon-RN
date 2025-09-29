@@ -10,9 +10,9 @@ import typography from '../../constants/typography';
 import { useNavigation } from '@react-navigation/native';
 import { Check } from 'lucide-react-native';
 
-export default function Partners() {
+export default function Partners(): React.ReactElement {
     const colors = ['#FEFEFE', '#EFEFFF']
-    const navigation = useNavigation()
+    const navigation = useNavigation<any>()
     const data = imageOverlayData[0];
     const handleStart = () => {
         navigation.navigate('Auth', { screem: 'UserDetails' })

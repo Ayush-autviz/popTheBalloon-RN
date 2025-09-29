@@ -11,10 +11,10 @@ import Button from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
 
 
-export default function LobbyScreen() {
-const navigation = useNavigation()
+export default function LobbyScreen(): React.ReactElement {
+const navigation = useNavigation<any>()
   const handleCreateLobby = () => {
-    navigation.navigate('App', {Screen: 'CreateLobby'})
+    navigation.navigate('App', {screen: 'CreateLobby'})
   }
 
   return (

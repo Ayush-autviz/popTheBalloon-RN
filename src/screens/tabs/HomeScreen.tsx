@@ -8,7 +8,7 @@ import ProfileInfo from '../../components/home/ProfileInfo'
 import FeaturedLobbies from '../../components/home/FeaturedLobbies'
 import RecentActivity from '../../components/home/RecentActivity'
 
-export default function HomeScreen() {
+export default function HomeScreen(): React.ReactElement {
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>

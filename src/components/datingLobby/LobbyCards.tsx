@@ -6,8 +6,14 @@ import spacing from '../../constants/spacing'
 import typography from '../../constants/typography'
 import Button from '../ui/Button'
 import { lobbyCardsData, LobbyCard } from '../../constants/datingLobby/lobbyCardsData'
+import { useNavigation } from '@react-navigation/native'
 
 const LobbyCards: React.FC = () => {
+    const navigation = useNavigation()
+
+    const handleDetails = () => {
+        navigation.navigate('App', {screen: 'LobbyDetails'})
+    }
 
     const renderItem = (item: LobbyCard) => {
         return (
@@ -20,7 +26,7 @@ const LobbyCards: React.FC = () => {
                     </Text>
 
                     <View style={styles.buttonRow}>
-                        <Button text="Join" rounded variant="outline" style={styles.joinButton} textStyle={styles.joinText} />
+                        <Button text="Details" rounded variant="outline" style={styles.joinButton} textStyle={styles.joinText} onPress={handleDetails} />
                     </View>
                 </View>
 

@@ -14,7 +14,7 @@ import CreateLobby5 from '../../components/datingLobby/createDatingLobby/CreateL
 import CreateLobby6 from '../../components/datingLobby/createDatingLobby/CreateLobby6'
 import CreateLobby7 from '../../components/datingLobby/createDatingLobby/CreateLobby7'
 
-export default function CreateDatingLobby() {
+export default function CreateDatingLobby(): React.ReactElement {
   const TOTAL_STEPS = 7
   const [step, setStep] = useState<number>(1)
 
