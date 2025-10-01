@@ -44,8 +44,8 @@ import { ArrowLeft } from 'lucide-react-native'
 type HeaderProps = {
   text: string
   backButton?: boolean
-  settingButton?: boolean
-  onSettingPress?: () => void
+  icon?: React.ReactNode
+  onIconPress?: () => void
   containerStyle?: ViewStyle
   textStyle?: TextStyle
 }
@@ -53,8 +53,8 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({
   text,
   backButton = true,
-  settingButton = false,
-  onSettingPress,
+  icon,
+  onIconPress,
   containerStyle,
   textStyle,
 }) => {
@@ -79,9 +79,9 @@ const onBackPress = () => {
         {text}
       </Text>
 
-      {settingButton ? (
-        <TouchableOpacity onPress={onSettingPress} style={styles.iconPlaceholder}>
-          <Text>csa</Text>
+      {icon ? (
+        <TouchableOpacity onPress={onIconPress} style={styles.iconPlaceholder}>
+          {icon}
         </TouchableOpacity>
       ) : (
         <View style={styles.iconPlaceholder} />

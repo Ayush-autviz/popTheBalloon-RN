@@ -20,7 +20,7 @@ export default function Partners() {
             </ScrollView>
 
             <View style={styles.footer}>
-                <Button variant="partner" />
+                <Button variant='partner' gradientText text='Become Partners' />
                 <Button variant="grey" text="View Plans" />
             </View>
         </View>

@@ -8,6 +8,7 @@ import GradientButton from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
 import { onboardingSteps } from '../../constants/onboarding/onboardingSteps'
 import colors from '../../constants/color'
+import Button from '../../components/ui/Button'
 
 export default function Onboarding1(): React.ReactElement {
   const [currentStep, setcurrentStep] = useState<number>(0)
@@ -24,9 +25,9 @@ export default function Onboarding1(): React.ReactElement {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.skipContainer}>
-        <Text style={styles.skipText}>Skip</Text>
-      </TouchableOpacity>
+      <View style={styles.skipContainer}>
+        <Button variant='ghost' text='Skip' style={{marginTop: 0}} />
+      </View>
 
       <View style={styles.content}>
         <Image source={imageSource} resizeMode='contain' style={styles.image} />

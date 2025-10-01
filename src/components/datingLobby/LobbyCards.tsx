@@ -7,6 +7,8 @@ import typography from '../../constants/typography'
 import Button from '../ui/Button'
 import { lobbyCardsData, LobbyCard } from '../../constants/datingLobby/lobbyCardsData'
 import { useNavigation } from '@react-navigation/native'
+import { SvgXml } from 'react-native-svg'
+import { PopGradientIcon } from '../../constants/svg'
 
 const   LobbyCards: React.FC = () => {
     const navigation = useNavigation<any>()
@@ -26,7 +28,7 @@ const   LobbyCards: React.FC = () => {
                     </Text>
 
                     <View style={styles.buttonRow}>
-                        <Button text="Details" rounded variant="outline" style={styles.joinButton} textStyle={styles.joinText} onPress={handleDetails} />
+                        <Button icon={<SvgXml xml={PopGradientIcon} />} text="Details" rounded variant="outline" innerStyle={{paddingVertical: spacing.sm}} style={styles.joinButton}  textStyle={{fontSize: typography.body}} onPress={handleDetails} />
                     </View>
                 </View>
 
@@ -83,10 +85,6 @@ const styles = StyleSheet.create({
     },
     joinButton: {
         marginTop: 0,
-    },
-    joinText: {
-        fontSize: typography.body,
-        fontWeight: '600',
     },
     image: {
         width: '40%',

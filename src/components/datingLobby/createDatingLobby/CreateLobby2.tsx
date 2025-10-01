@@ -49,7 +49,7 @@ export default function CreateLobby2() {
         data={data}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        scrollEnabled={true}
+        scrollEnabled={false}
         contentContainerStyle={styles.listContainer}
         renderItem={({ item, index }) => (
           <TouchableOpacity
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     box: {
-      width: (spacing.screenWidth / 2) - spacing.screenPadding - spacing.sm,
+      width: (spacing.screenWidth / 2) - spacing.screenPadding - spacing.large,
       aspectRatio: 1,
       flex: 0
     }
