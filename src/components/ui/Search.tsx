@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, TextInputProps, StyleProp, ViewStyle } from 'react-native'
+import { View, TextInput, StyleSheet, TextInputProps, StyleProp, ViewStyle, TouchableOpacity } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import spacing from '../../constants/spacing'
 import typography from '../../constants/typography'
 import colors from '../../constants/color'
-import { SearchIcon, SlidersHorizontal } from 'lucide-react-native'
+import { Heart, SearchIcon, Settings, SlidersHorizontal } from 'lucide-react-native'
 
 type GradientSearchInputProps = TextInputProps & {
     value: string
@@ -21,6 +21,7 @@ const Search: React.FC<GradientSearchInputProps> = ({
     ...rest
 }) => {
     return (
+    <View style={styles.main}>
         <LinearGradient
             colors={colors.gradientPrimary}
             start={{ x: 0, y: 0 }}
@@ -42,14 +43,30 @@ const Search: React.FC<GradientSearchInputProps> = ({
                 <SlidersHorizontal />
             </View>
         </LinearGradient>
+        
+        <TouchableOpacity style={styles.iconContainer}>
+            <Heart />
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.iconContainer}>
+            <Settings />
+        </TouchableOpacity>
+
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    main: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap:  5,
+    },
     gradientBorder: {
         borderRadius: 10,
         padding: 1.5,
         marginVertical: spacing.sm,
+        flex: 1
     },
     Container: {
         backgroundColor: '#fff',
@@ -59,7 +76,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%'
     },
     innerContainer: {
         flexDirection: "row",
@@ -70,8 +86,10 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: colors.textPrimary,
         padding: 0,
-        width: '80%'
     },
+    iconContainer: {
+        paddingHorizontal: spacing.xs
+    }
 })
 
 export default Search

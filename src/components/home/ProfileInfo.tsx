@@ -1,9 +1,12 @@
-import { Check, MapPin } from 'lucide-react-native';
+import { Check, MapPin, Star, X } from 'lucide-react-native';
 import React from 'react';
 import { ImageBackground, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import spacing from '../../constants/spacing';
 import typography from '../../constants/typography';
 import Button from '../ui/Button';
+import colors from '../../constants/color';
+import { SvgXml } from 'react-native-svg';
+import { PopIcon } from '../../constants/svg';
 
 export default function ProfileCard() {
   return (
@@ -27,11 +30,10 @@ export default function ProfileCard() {
         </View>
 
         <View style={styles.buttonRow}>
-          <Button variant='outline' icon='cross' />
+          <Button variant='outline' icon={<X color={colors.textTertiary} />} />
+          <Button variant='gradient' icon={<SvgXml xml={PopIcon} />} style={{paddingHorizontal: spacing.xl, paddingVertical: spacing.xl, borderRadius: spacing.jumbo}} />
           
-          <Button variant='gradient' pop />
-          
-          <Button variant='outline' icon='star' />
+          <Button variant='outline' icon={<Star fill={'#EFAC4E'}  color={'#EFAC4E'}/>} />
  
           
         </View>

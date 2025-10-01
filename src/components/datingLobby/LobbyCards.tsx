@@ -8,8 +8,8 @@ import Button from '../ui/Button'
 import { lobbyCardsData, LobbyCard } from '../../constants/datingLobby/lobbyCardsData'
 import { useNavigation } from '@react-navigation/native'
 
-const LobbyCards: React.FC = () => {
-    const navigation = useNavigation()
+const   LobbyCards: React.FC = () => {
+    const navigation = useNavigation<any>()
 
     const handleDetails = () => {
         navigation.navigate('App', {screen: 'LobbyDetails'})
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     cardContainer: {
         backgroundColor: '#fff',
         borderRadius: 9,
-        padding: spacing.md,
+        paddingVertical: spacing.xs,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

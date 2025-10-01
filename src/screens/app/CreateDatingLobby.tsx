@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useCallback, useMemo, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '../../constants/color'
@@ -13,12 +13,17 @@ import CreateLobby4 from '../../components/datingLobby/createDatingLobby/CreateL
 import CreateLobby5 from '../../components/datingLobby/createDatingLobby/CreateLobby5'
 import CreateLobby6 from '../../components/datingLobby/createDatingLobby/CreateLobby6'
 import CreateLobby7 from '../../components/datingLobby/createDatingLobby/CreateLobby7'
+import { useNavigation } from '@react-navigation/native'
 
 export default function CreateDatingLobby(): React.ReactElement {
   const TOTAL_STEPS = 7
   const [step, setStep] = useState<number>(1)
+  const navigation = useNavigation<any>()
 
   const goNext = useCallback(() => {
+    if (step === 7) {
+      return navigation.navigate('App', {screen: 'BallonDatingLobby'})
+    }
     setStep(prev => (prev < TOTAL_STEPS ? prev + 1 : prev))
   }, [])
 
@@ -49,12 +54,14 @@ export default function CreateDatingLobby(): React.ReactElement {
   return (
    <SafeAreaView style={styles.main}>
     <Header text='Dating Lobby' />
-    <View style={styles.container} >
+    <ScrollView style={styles.container} >
       {step !== 7 && <ProgressSteps currentStep={step} />}
       {StepContent}
-    </View>
+    </ScrollView>
 
       <Button text={step === TOTAL_STEPS ? 'Create Lobby' : 'Continue'} onPress={goNext} style={{marginHorizontal: spacing.screenPadding}} />
+      {step === 7 && <Button variant='grey' text={'Save as Draft'} style={{marginHorizontal: spacing.screenPadding}} />}
+      
    </SafeAreaView>
   )
 }
