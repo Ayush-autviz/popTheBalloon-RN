@@ -5,7 +5,8 @@ import {
     StyleSheet,
     TextInputProps,
     useWindowDimensions,
-    Text
+    Text,
+    ViewStyle
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import spacing from '../../constants/spacing';
@@ -18,6 +19,8 @@ type OtpInputProps = {
     otp: string[];
     setOtp: (otp: string[]) => void;
     length?: number;
+    style?: ViewStyle;
+    boxStyle?: ViewStyle;
     gradientColors?: string[];
 };
 
@@ -25,6 +28,8 @@ const OtpInput: React.FC<OtpInputProps> = ({
     otp,
     setOtp,
     length = 6,
+    style,
+    boxStyle,
     gradientColors = ['#B02D9F', '#DE6F41'],
 }) => {
     const inputRef = useRef<TextInput[]>([]);
@@ -47,13 +52,13 @@ const OtpInput: React.FC<OtpInputProps> = ({
         }
     };
 
-    useEffect(() => {
-        inputRef.current[0]?.focus();
-    }, []);
+    // useEffect(() => {
+    //     inputRef.current[0]?.focus();
+    // }, []);
 
     return (
         <>
-            <Text style={styles.text}>Verification Code</Text>
+            {/* <Text style={styles.text}>Verification Code</Text> */}
 
             <View style={styles.container}>
                 {Array.from({ length }).map((_, index) => (
@@ -62,13 +67,13 @@ const OtpInput: React.FC<OtpInputProps> = ({
                         colors={gradientColors}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
-                        style={[styles.gradientBox, { width: screenWidth / 7 }]}
+                        style={[styles.gradientBox, { width: screenWidth / 7 }, style]}
                     >
                         <TextInput
                             ref={(ref) => {
                                 inputRef.current[index] = ref!;
                             }}
-                            style={styles.input}
+                            style={[styles.input, boxStyle]}
                             value={otp[index]}
                             keyboardType="number-pad"
                             maxLength={1}
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background,
         borderRadius: 8,
         fontSize: typography.title,
-        fontWeight: '700',
+        fontWeight: '500',
         textAlign: 'center',
         paddingVertical: spacing.sm,
         color: colors.textPrimary,

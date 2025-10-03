@@ -26,7 +26,7 @@ const MatchView: React.FC<MatchViewProps> = ({ primaryUserImage, secondaryUserIm
         </View>
 
         <View style={[styles.card, styles.cardFront]}>
-          <Image source={primaryUserImage} style={styles.cardImage} />
+          <Image source={primaryUserImage} resizeMode='contain' style={styles.cardImage} />
           <View style={styles.badge}>
             <LinearGradient colors={colors.gradientPrimary} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.badgeGradient}>
               <View style={styles.badgeInner} />
@@ -35,10 +35,10 @@ const MatchView: React.FC<MatchViewProps> = ({ primaryUserImage, secondaryUserIm
         </View>
       </View>
 
-      <Text style={styles.congrats}>Congratulations!</Text>
+      {/* <Text style={styles.congrats}>Congratulations!</Text>
       <Text style={styles.subtitle}>It's a Match!</Text>
 
-      <Button text='Start Chat' onPress={onStartChat} />
+      <Button text='Start Chat' onPress={onStartChat} /> */}
     </View>
   )
 }
@@ -65,17 +65,20 @@ const styles = StyleSheet.create({
     borderRadius: spacing.lg,
   },
   cardBack: {
-    transform: [{ rotate: '-12deg' }],
-  },
-  cardFront: {
     position: 'absolute',
     transform: [{ rotate: '12deg' }],
     right: spacing.large,
-    top: spacing.md,
+    // top: spacing.jumbo,
+  },
+  cardFront: {
+    position: 'absolute',
+    transform: [{ rotate: '-12deg' }],
+    left: spacing.large,
+    top: spacing.jumbo,
   },
   cardImage: {
     width: '100%',
-    height: '100%',
+    height: 400,
   },
   badge: {
     position: 'absolute',

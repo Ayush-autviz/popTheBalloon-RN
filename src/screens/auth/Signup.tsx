@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useMemo, useState } from 'react'
 import Header from '../../components/Header'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import spacing from '../../constants/spacing'
@@ -10,12 +10,67 @@ import SocialLoginButtons from '../../components/auth/SocialLoginButtons'
 import GradientCheckbox from '../../components/ui/Checkbox'
 import GradientProgressBar from '../../components/ui/ProgressBar'
 import { useNavigation } from '@react-navigation/native'
+import { z } from 'zod'
+import { useRegister, useVerifyOtp } from '../../hooks/useAuth'
+import OtpModal from '../../components/auth/OtpModal'
+
+
+type FormState = {
+  email: string
+  password: string
+  confirmPassword: string
+  terms: boolean
+  privacy: boolean
+}
 
 export default function Signup(): React.ReactElement {
   const navigation = useNavigation<any>()
+  const { mutate: register, isPending } = useRegister()
+  const { mutate: verifyOtp, isPending: isVerifying } = useVerifyOtp()
+  const [otpVisible, setOtpVisible] = useState(false)
+
+  const [form, setForm] = useState<FormState>({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    terms: false,
+    privacy: false,
+  })
+
+  const passwordSchema = z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Z]/, 'Must include at least one uppercase letter')
+    .regex(/\d/, 'Must include at least one number')
+    .regex(/[^A-Za-z0-9]/, 'Must include at least one special character')
+
+  const schema = useMemo(() => z
+    .object({
+      email: z.string().email('Enter a valid email'),
+      password: passwordSchema,
+      confirmPassword: z.string().min(8, 'Confirm your password'),
+      terms: z.boolean().refine((v) => v, 'You must accept the terms'),
+      privacy: z.boolean().refine((v) => v, 'You must accept the privacy policy'),
+    })
+    .refine((val) => val.password === val.confirmPassword, {
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
+    }), [] )
 
   const handleSignup = () => {
-    navigation.navigate('AddPhotos')
+    const parsed = schema.safeParse(form)
+    if (!parsed.success) {
+      const first = parsed.error.issues[0]
+      Alert.alert(first.message)
+      return
+    }
+    register(
+      { email: parsed.data.email, password: parsed.data.password, confirmPassword: parsed.data.confirmPassword, registerType: 'email' },
+      {
+        onSuccess: () => { setOtpVisible(true) },
+        onError: (err) => Alert.alert('Signup failed', String(err)),
+      }
+    )
   }
 
   const handlePartner = () => {
@@ -27,19 +82,19 @@ export default function Signup(): React.ReactElement {
       <Header text='Create your account' />
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <GradientInput label='Email' value='' onChangeText={() => { }} />
-        <GradientInput label='Password' value='' onChangeText={() => { }} />
+        <GradientInput label='Email' value={form.email} onChangeText={(v) => setForm((s) => ({ ...s, email: v }))} />
+        <GradientInput label='Password' value={form.password} onChangeText={(v) => setForm((s) => ({ ...s, password: v }))} />
+        <GradientInput label='Confirm Password' value={form.confirmPassword} onChangeText={(v) => setForm((s) => ({ ...s, confirmPassword: v }))} />
+        
 
         <Text style={styles.passwordStrength}>Password strength</Text>
-        <GradientProgressBar progress={0.5} />
+        <GradientProgressBar progress={(form.password.length >= 8 ? 0.25 : 0) + (/[A-Z]/.test(form.password) ? 0.25 : 0) + (/\d/.test(form.password) ? 0.25 : 0) + (/[^A-Za-z0-9]/.test(form.password) ? 0.25 : 0)} />
 
-        <GradientCheckbox label='I agree to the Terms of Service' onChange={() => { }} checked={false} />
-        <GradientCheckbox label='I agree to the Privacy Policy' onChange={() => { }} checked={false} />
+        <GradientCheckbox label='I agree to the Terms of Service' onChange={(v) => setForm((s) => ({ ...s, terms: !form.terms }))} checked={form.terms} />
+        <GradientCheckbox label='I agree to the Privacy Policy' onChange={(v) => setForm((s) => ({ ...s, privacy: !form.privacy }))} checked={form.privacy} />
 
 
-        <Button variant='gradient' text='Sign up' onPress={handleSignup} />
-
-        {/* <Button variant='partner' onPress={handlePartner} /> */}
+        <Button variant='gradient' text='Sign up' onPress={handleSignup} loading={isPending} disabled={isPending} />
 
         <SocialLoginButtons />
 
@@ -51,6 +106,13 @@ export default function Signup(): React.ReactElement {
         </View>
 
       </ScrollView>
+      <OtpModal
+      email={form.email}
+        visible={otpVisible}
+        onClose={() => setOtpVisible(false)}
+        onVerify={(code) => verifyOtp({ code })}
+        isVerifying={isVerifying}
+      />
     </SafeAreaView>
   )
 }

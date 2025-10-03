@@ -11,7 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../constants/color';
 import spacing from '../../constants/spacing';
 import typography from '../../constants/typography';
-// import { Check } from 'lucide-react-native'; // Optional icon, replace or remove if needed
+import { Check } from 'lucide-react-native'; 
 
 type GradientCheckboxProps = {
     label: string;
@@ -34,8 +34,7 @@ const GradientCheckbox: React.FC<GradientCheckboxProps> = ({
                 onPress={onChange}
                 disabled={disabled}
                 style={[styles.checkbox, checked && styles.checkedBox]}>
-                {/* {checked && <Check size={16} color="#fff" />} */}
-                {checked && <Text>cas</Text>}
+                {checked && <Check size={16} color="#fff" />}
             </TouchableOpacity>
 
             <Text style={styles.label}>{label}</Text>

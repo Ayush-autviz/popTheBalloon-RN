@@ -16,9 +16,9 @@ export default function AuthNavigator() {
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='UserDetails' component={UserDetails} />
-            <Stack.Screen name='Verification' component={Verification} />
             <Stack.Screen name='Signup' component={Signup} />
+            <Stack.Screen name='Verification' component={Verification} />
+            <Stack.Screen name='UserDetails' component={UserDetails} />
             <Stack.Screen name='AddPhotos' component={AddPhotos} />
             <Stack.Screen name='AboutYourself' component={AboutYourself} />
             <Stack.Screen name='Partners' component={Partners} />

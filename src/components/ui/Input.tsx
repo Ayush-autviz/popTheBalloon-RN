@@ -41,7 +41,7 @@ const GradientInput: React.FC<GradientLabelInputProps> = ({
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={`Enter ${label.toLowerCase()}`}
-                    placeholderTextColor={colors.textPrimary     }
+                    placeholderTextColor={colors.textSecondary}
                 />
                 </View>
             
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: typography.body,
-        fontWeight: '700',
+        fontWeight: '600',
         marginLeft: spacing.sm,
         padding:0,
         marginTop: spacing.xs,
