@@ -59,9 +59,10 @@ export default function CreateDatingLobby(): React.ReactElement {
       {StepContent}
     </ScrollView>
 
-      <Button text={step === TOTAL_STEPS ? 'Create Lobby' : 'Continue'} onPress={goNext} style={{marginHorizontal: spacing.screenPadding}} />
-      {step === 7 && <Button variant='grey' text={'Save as Draft'} style={{marginHorizontal: spacing.screenPadding}} />}
-      
+      <View style={{paddingHorizontal: spacing.screenPadding, paddingBottom: spacing.screenPadding}}>
+      <Button text={step === TOTAL_STEPS ? 'Create Lobby' : 'Continue'} onPress={goNext} />
+      {step === 7 && <Button variant='grey' text={'Save as Draft'} />}
+      </View>
    </SafeAreaView>
   )
 }

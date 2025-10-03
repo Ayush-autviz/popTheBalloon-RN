@@ -5,6 +5,7 @@ import colors from '../../constants/color'
 import NetworkError from '../../components/error/NetworkError'
 import Header from '../../components/Header'
 import spacing from '../../constants/spacing'
+import MatchView from '../../components/match/MatchView'
 
 
 export default function ProfileScreen(): React.ReactElement {
@@ -12,7 +13,8 @@ export default function ProfileScreen(): React.ReactElement {
     <SafeAreaView style={styles.main}>
       <Header text='Profile' backButton={false} />
       <View style={styles.container}>
-        <NetworkError />
+        {/* <NetworkError /> */}
+          <MatchView primaryUserImage={require('../../assets/images/people/Sarah.png')} secondaryUserImage={require('../../assets/images/people/Sarah.png')} />
       </View>
     </SafeAreaView>
   )

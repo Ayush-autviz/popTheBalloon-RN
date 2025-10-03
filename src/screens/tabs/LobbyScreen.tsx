@@ -4,11 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '../../constants/color'
 import spacing from '../../constants/spacing'
 import Header from '../../components/Header'
-import Search from '../../components/ui/Search'
 import TimeTabs from '../../components/datingLobby/TimeTabs'
 import LobbyCards from '../../components/datingLobby/LobbyCards'
 import Button from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
+import LobbySearch from '../../components/datingLobby/LobbySearch'
 
 
 export default function LobbyScreen(): React.ReactElement {
@@ -22,7 +22,7 @@ const navigation = useNavigation<any>()
       <Header text='Dating Lobby' />
       <View style={styles.container}>
 
-        <Search value='' onChangeText={() => { }} />
+        <LobbySearch value='' onChangeText={() => { }} />
         <TimeTabs />
         <ScrollView showsVerticalScrollIndicator={false}>
           <LobbyCards />
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   container: {
-    paddingHorizontal: spacing.screenPadding,
+    padding: spacing.screenPadding,
     flex: 1
   }
 })

@@ -13,7 +13,7 @@ type GradientSearchInputProps = TextInputProps & {
     containerStyle?: StyleProp<ViewStyle>
 }
 
-const Search: React.FC<GradientSearchInputProps> = ({
+const LobbySearch: React.FC<GradientSearchInputProps> = ({
     value,
     onChangeText,
     placeholder = 'Search',
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Search
+export default LobbySearch
 
 

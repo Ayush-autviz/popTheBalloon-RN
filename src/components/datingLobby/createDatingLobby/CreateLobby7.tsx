@@ -45,7 +45,7 @@ export default function CreateLobby7(): React.ReactElement {
 
 const styles = StyleSheet.create({
     heading: {
-        fontWeight: '700',
+        fontWeight: '600',
         fontSize: typography.subtitle
     },
     image: {
@@ -56,10 +56,11 @@ const styles = StyleSheet.create({
     },
     miniText: {
         color: colors.textSecondary,
-        marginTop: spacing.xs
+        marginTop: spacing.xs,
+        fontSize: typography.small
     },
     creationHeading: {
-        fontWeight: '700',
+        fontWeight: '600',
         fontSize: typography.subtitle,
         marginVertical: spacing.xxl
     },
@@ -70,11 +71,11 @@ const styles = StyleSheet.create({
     },
     label: {
         color: colors.textSecondary,
-        fontSize: typography.body
+        fontSize: typography.small
 
     },
     value: {
-        fontSize: typography.body
+        fontSize: typography.small
     },
     bottomBorder: {
         borderBottomColor: colors.textSecondary,
