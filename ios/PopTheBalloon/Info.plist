@@ -56,5 +56,7 @@
 	<string>We save captured photos to your library.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app needs microphone access to record voice prompts.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to provide location-based features.</string>
 </dict>
 </plist>
