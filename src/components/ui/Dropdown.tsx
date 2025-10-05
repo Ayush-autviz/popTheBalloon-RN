@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     backgroundColor: colors.background,
     borderRadius: 9,
-    paddingVertical: spacing.md
+    paddingVertical: 10
   },
   label: {
     fontSize: typography.body,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   placeholderText: {
-    color: colors.textPrimary,
+    color: colors.textSecondary,
     fontWeight: '700',
   },
 })

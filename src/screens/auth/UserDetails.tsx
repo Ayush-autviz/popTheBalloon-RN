@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+
 import spacing from '../../constants/spacing'
 import typography from '../../constants/typography'
 import Input from '../../components/ui/Input'
@@ -9,6 +9,7 @@ import GradientDropdown from '../../components/ui/Dropdown'
 import Button from '../../components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
 import GradientSwitch from '../../components/ui/GradientSwitch'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function UserDetails(): React.ReactElement {
     const navigation = useNavigation<any>()

@@ -9,6 +9,7 @@ import TextArea from '../../components/ui/TextArea'
 import GradientProgressBar from '../../components/ui/ProgressBar'
 import Button from '../../components/ui/Button'
 import { ChevronRight } from 'lucide-react-native'
+import VoiceRecorder from '../../components/shared/VoiceRecorder'
 
 export default function AboutYourself(): React.ReactElement {
     return (
@@ -34,12 +35,15 @@ export default function AboutYourself(): React.ReactElement {
                     <ChevronRight size={typography.secondaryTitle}/>
                 </View>
 
-                <Text style={styles.minutes}>0:30/1:00</Text>
-                <GradientProgressBar progress={0.5} />
+                <VoiceRecorder
+                    maxDuration={60}
+                    onRecordingComplete={(filePath) => {
+                        // Handle the recorded file path
+                        console.log('Recording saved:', filePath)
+                    }}
+                />
 
                 <Text style={styles.recordText}>Record a voice prompt</Text>
-
-                <Button variant='gradient' text='Record' style={styles.recordButton}/>
 
             </ScrollView>
 
