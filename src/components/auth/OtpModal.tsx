@@ -23,6 +23,7 @@ const OtpModal: React.FC<OtpModalProps> = ({
   visible,
   phoneMasked,
   email,
+  
   onClose,
   onVerify,
   onResend,

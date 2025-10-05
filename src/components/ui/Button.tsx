@@ -8,6 +8,7 @@ import {
   ImageSourcePropType,
   Image,
   ActivityIndicator,
+  StyleProp,
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import spacing from '../../constants/spacing'
@@ -18,8 +19,8 @@ import TextGradient from './TextGradient'
 type ButtonProps = {
   text?: string
   onPress?: () => void
-  style?: ViewStyle
-  innerStyle?: ViewStyle
+  style?: StyleProp<ViewStyle>
+  innerStyle?: StyleProp<ViewStyle>
   textStyle?: TextStyle
   variant?: 'gradient' | 'grey' | 'partner' | 'outline' | 'ghost'
   image?: ImageSourcePropType

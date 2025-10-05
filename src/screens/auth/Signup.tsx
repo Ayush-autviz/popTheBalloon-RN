@@ -11,7 +11,7 @@ import GradientCheckbox from '../../components/ui/Checkbox'
 import GradientProgressBar from '../../components/ui/ProgressBar'
 import { useNavigation } from '@react-navigation/native'
 import { z } from 'zod'
-import { useRegister, useVerifyOtp } from '../../hooks/useAuth'
+import { useRegister, useEmailVerify, useResendEmailOtp } from '../../hooks/useAuth'
 import OtpModal from '../../components/auth/OtpModal'
 
 
@@ -26,7 +26,8 @@ type FormState = {
 export default function Signup(): React.ReactElement {
   const navigation = useNavigation<any>()
   const { mutate: register, isPending } = useRegister()
-  const { mutate: verifyOtp, isPending: isVerifying } = useVerifyOtp()
+  const { mutate: emailVerify, isPending: isVerifying } = useEmailVerify()
+  const { mutate: resendEmailOtp, isPending: isResending } = useResendEmailOtp()
   const [otpVisible, setOtpVisible] = useState(false)
 
   const [form, setForm] = useState<FormState>({
@@ -107,11 +108,24 @@ export default function Signup(): React.ReactElement {
 
       </ScrollView>
       <OtpModal
-      email={form.email}
+        email={form.email}
         visible={otpVisible}
         onClose={() => setOtpVisible(false)}
-        onVerify={(code) => verifyOtp({ code })}
+        onVerify={(code) =>
+          emailVerify(
+            { email: form.email, verificationCode: Number(code) },
+            {
+              onSuccess: () => {
+                setOtpVisible(false)
+                navigation.navigate('Verification')
+              },
+              onError: (err) => Alert.alert('Verification failed', String(err)),
+            }
+          )
+        }
+        onResend={() => resendEmailOtp({ email: form.email })}
         isVerifying={isVerifying}
+        isResending={isResending}
       />
     </SafeAreaView>
   )
