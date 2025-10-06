@@ -4,6 +4,7 @@ import CreateDatingLobby from '../screens/app/CreateDatingLobby'
 import LobbyDetails from '../screens/app/LobbyDetails'
 import BallonDatingLobby from '../screens/app/BallonDatingLobby'
 import MessageScreen from '../screens/app/chat/MessageScreen'
+import ParticipantDetails from '../screens/app/ParticipantDetails'
 
 
 export default function AppNavigator() {
@@ -16,6 +17,7 @@ export default function AppNavigator() {
             <Stack.Screen name='LobbyDetails' component={LobbyDetails} />
             <Stack.Screen name='BallonDatingLobby' component={BallonDatingLobby} />
             <Stack.Screen name='MessageScreen' component={MessageScreen} />
+            <Stack.Screen name='ParticipantDetails' component={ParticipantDetails} />
         </Stack.Navigator>
     )
 }

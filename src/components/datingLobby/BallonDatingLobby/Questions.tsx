@@ -58,7 +58,10 @@ export default function Questions() {
 
 const styles = StyleSheet.create({
   main: {
-    padding: spacing.md,
+    paddingHorizontal: spacing.screenPadding,
+    paddingVertical: spacing.xxl,
+    backgroundColor: colors.backgroundSecondary,
+    marginVertical: spacing.lg,
   },
   header: {
     flexDirection: 'row',

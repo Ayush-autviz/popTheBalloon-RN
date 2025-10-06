@@ -20,12 +20,12 @@ export default function CreateDatingLobby(): React.ReactElement {
   const [step, setStep] = useState<number>(1)
   const navigation = useNavigation<any>()
 
-  const goNext = useCallback(() => {
+  const goNext = ()=> {
     if (step === 7) {
       return navigation.navigate('App', {screen: 'BallonDatingLobby'})
     }
     setStep(prev => (prev < TOTAL_STEPS ? prev + 1 : prev))
-  }, [])
+  }
 
   const goBack = useCallback(() => {
     setStep(prev => (prev > 1 ? prev - 1 : prev))
