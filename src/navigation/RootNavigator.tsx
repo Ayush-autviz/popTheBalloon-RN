@@ -18,9 +18,9 @@ export default function RootNavigator() {
             <Stack.Navigator screenOptions={{ headerShown: false, }} >
                 {/* <Stack.Screen name='SplashScreen' component={SplashScreen} /> */}
                 {/* <Stack.Screen name='Onboarding' component={OnboardingNavigator} /> */}
-                {/* <Stack.Screen name='Auth' component={AuthNavigator} />  */}
-                <Stack.Screen name='Tabs' component={BottomTabsNavigator} />
-                <Stack.Screen name='App' component={AppNavigator} />
+                <Stack.Screen name='Auth' component={AuthNavigator} /> 
+                {/* <Stack.Screen name='Tabs' component={BottomTabsNavigator} /> */}
+                {/* <Stack.Screen name='App' component={AppNavigator} /> */}
             </Stack.Navigator>
         </NavigationContainer>
 

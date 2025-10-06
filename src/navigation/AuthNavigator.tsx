@@ -18,10 +18,10 @@ export default function AuthNavigator() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             {/* <Stack.Screen name='Signup' component={Signup} /> */}
             {/* <Stack.Screen name='Verification' component={Verification} /> */}
-            <Stack.Screen name='UserDetails' component={UserDetails} />
+            {/* <Stack.Screen name='UserDetails' component={UserDetails} /> */}
             {/* <Stack.Screen name='AddPhotos' component={AddPhotos} /> */}
-            <Stack.Screen name='AboutYourself' component={AboutYourself} />
-            <Stack.Screen name='Partners' component={Partners} />
+            {/* <Stack.Screen name='AboutYourself' component={AboutYourself} /> */}
+            {/* <Stack.Screen name='Partners' component={Partners} /> */}
             <Stack.Screen name='Signin' component={Signin} />
         </Stack.Navigator>
     )

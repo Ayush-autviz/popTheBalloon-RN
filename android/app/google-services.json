@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "213635557263",
+    "project_id": "popballontest",
+    "storage_bucket": "popballontest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213635557263:android:7e2bec44e28a2f7cb70dfa",
+        "android_client_info": {
+          "package_name": "com.poptheballoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213635557263-v5eb210jolggunfnj3atgco7pq7nhfni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.poptheballoon",
+            "certificate_hash": "abf025f63301155b34e2b5a8884ea85ecc34065c"
+          }
+        },
+        {
+          "client_id": "213635557263-n6jft5qiefon9o19doglc6l83ru8pn50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz057HzQ5ZV4vwOKEeFX-GdK3ib-L8yPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213635557263-n6jft5qiefon9o19doglc6l83ru8pn50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

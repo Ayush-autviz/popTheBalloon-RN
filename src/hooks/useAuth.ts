@@ -1,6 +1,13 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query'
-import { sendPhoneOtp, register, SendPhoneOtpPayload, RegisterPayload, AuthResponse,  emailVerify, resendEmailOtp, EmailVerifyPayload, ResendEmailOtpPayload } from '../api/services/auth'
+import { sendPhoneOtp, register, emailVerify, resendEmailOtp } from '../api/services/auth'
 import { useAuthStore } from '../store/authStore'
+import type { 
+  SendPhoneOtpPayload, 
+  RegisterPayload, 
+  AuthResponse, 
+  EmailVerifyPayload, 
+  ResendEmailOtpPayload 
+} from '../api/types/auth'
 
 export function useSendPhoneOtp(): UseMutationResult<AuthResponse, Error, SendPhoneOtpPayload> {
   return useMutation<AuthResponse, Error, SendPhoneOtpPayload>({
