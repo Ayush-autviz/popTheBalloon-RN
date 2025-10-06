@@ -15,7 +15,7 @@ export default function Partners(): React.ReactElement {
     const navigation = useNavigation<any>()
     const data = imageOverlayData[0];
     const handleStart = () => {
-        navigation.navigate('Auth', { screem: 'UserDetails' })
+        navigation.navigate('Auth', { screen: 'UserDetails' })
     }
 
 

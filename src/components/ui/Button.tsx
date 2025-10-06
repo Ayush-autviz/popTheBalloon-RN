@@ -99,7 +99,7 @@ const Button: React.FC<ButtonProps> = ({
           onPress={onPress}
           activeOpacity={0.8}
           disabled={disabled || loading}
-          style={innerStyle}
+          style={[styles.innerContainer, styles.innerContainerNoPadding,  innerStyle]}
         >
           {renderContent()}
         </TouchableOpacity>
@@ -217,6 +217,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 5,
     justifyContent: 'center',
+  },
+  innerContainerNoPadding: {
+    paddingVertical: 0,
   },
   icon: {
     paddingHorizontal: spacing.lg,
