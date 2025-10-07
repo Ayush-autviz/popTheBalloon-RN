@@ -11,6 +11,30 @@ export type SendPhoneOtpPayload = Readonly<{
   phoneNumber: string 
 }>;
 
+export type PhoneVerificationPayload = Readonly<{
+  phoneNumber: string;
+  otpCode: string;
+}>;
+
+export type ForgotPasswordPayload = Readonly<{
+  email: string;
+}>;
+
+export type ResetPasswordPayload = Readonly<{
+  email: string;
+  verificationCode: string;
+  newPassword: string;
+  confirmPassword: string;
+}>;
+
+export type LoginPayload = Readonly<{
+  email: string;
+  password: string;
+  loginType: string;
+  googleToken?: string;
+  appleToken?: string;
+}>;
+
 export type RegisterPayload = Readonly<{
   email: string
   password: string
@@ -20,19 +44,11 @@ export type RegisterPayload = Readonly<{
 
 export type EmailVerifyPayload = Readonly<{ 
   email: string; 
-  verificationCode: number 
+  verificationCode: string 
 }>;
 
 export type ResendEmailOtpPayload = Readonly<{ 
   email: string 
-}>;
-
-export type VerifyOtpPayload = Readonly<{ 
-  code: string 
-}>;
-
-export type VerifyOtpResponse = Readonly<{ 
-  success: boolean 
 }>;
 
 // Google Auth Types

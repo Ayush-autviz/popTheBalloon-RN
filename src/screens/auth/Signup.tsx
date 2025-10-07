@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import Header from '../../components/Header'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native'
 import { z } from 'zod'
 import { useRegister, useEmailVerify, useResendEmailOtp } from '../../hooks/useAuth'
 import OtpModal from '../../components/auth/OtpModal'
+import { useToast } from '../../hooks/useToast'
 
 
 type FormState = {
@@ -29,6 +30,7 @@ export default function Signup(): React.ReactElement {
   const { mutate: emailVerify, isPending: isVerifying } = useEmailVerify()
   const { mutate: resendEmailOtp, isPending: isResending } = useResendEmailOtp()
   const [otpVisible, setOtpVisible] = useState(false)
+  const toast = useToast()
 
   const [form, setForm] = useState<FormState>({
     email: '',
@@ -62,21 +64,39 @@ export default function Signup(): React.ReactElement {
     const parsed = schema.safeParse(form)
     if (!parsed.success) {
       const first = parsed.error.issues[0]
-      Alert.alert(first.message)
+      toast.error('Validation Error', first.message)
       return
     }
     register(
       { email: parsed.data.email, password: parsed.data.password, confirmPassword: parsed.data.confirmPassword, registerType: 'email' },
       {
-        onSuccess: () => { setOtpVisible(true) },
-        onError: (err) => Alert.alert('Signup failed', String(err)),
+        onSuccess: () => { 
+          setOtpVisible(true)
+          toast.success('Account Created', 'Please verify your email address')
+        },
+        onError: (err) => toast.error('Signup Failed', String(err)),
       }
     )
   }
 
-  const handlePartner = () => {
-    navigation.navigate('Partners')
+  const handleEmailVerify = (code: string) => {
+    emailVerify(
+      { email: form.email, verificationCode: code },
+      {
+        onSuccess: (res) => {
+          setOtpVisible(false)
+          navigation.navigate('Auth', { screen: 'Verification' })
+          toast.success('Email Verified', 'Your account has been successfully verified')
+          console.log('[Signup] Email verified', res)
+        },
+        onError: (err) => {
+          console.log('[Signup] Verification failed', err)
+          toast.error('Verification Failed', String(err.response?.data?.msg))
+        }
+      }
+    )
   }
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -112,18 +132,15 @@ export default function Signup(): React.ReactElement {
         visible={otpVisible}
         onClose={() => setOtpVisible(false)}
         onVerify={(code) =>
-          emailVerify(
-            { email: form.email, verificationCode: Number(code) },
-            {
-              onSuccess: () => {
-                setOtpVisible(false)
-                navigation.navigate('Verification')
-              },
-              onError: (err) => Alert.alert('Verification failed', String(err)),
-            }
-          )
+          handleEmailVerify(code)
         }
-        onResend={() => resendEmailOtp({ email: form.email })}
+        onResend={() => resendEmailOtp(
+          { email: form.email },
+          {
+            onSuccess: () => toast.success('Code Sent', 'A new verification code has been sent to your email'),
+            onError: (err) => toast.error('Resend Failed', String(err)),
+          }
+        )}
         isVerifying={isVerifying}
         isResending={isResending}
       />
