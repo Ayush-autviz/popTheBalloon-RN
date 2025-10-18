@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   card: {
     position: 'absolute',
     width: screenWidth - spacing.screenPadding * 2,
-    height: screenHeight * 0.7,
+    height: 450, // Fixed height instead of screenHeight * 0.7
     borderRadius: 20,
     backgroundColor: '#fff',
     shadowColor: '#000',

@@ -36,8 +36,8 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
       setLoading(true);
       setError(null);
       const response = await discoverProfiles({ limit: 10 });
-      console.log('response', response);
-      setProfiles(response.data?.profiles || []);
+        console.log('response', response);
+        setProfiles(response.data.profiles || []);
       setCurrentIndex(0);
     } catch (err) {
       setError('Failed to load profiles');
@@ -236,7 +236,7 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 450, // Fixed height to match card height
     position: 'relative',
   },
   loadingContainer: {
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardContainer: {
-    flex: 1,
+    height: 450, // Fixed height to match container
     position: 'relative',
   },
   card: {
