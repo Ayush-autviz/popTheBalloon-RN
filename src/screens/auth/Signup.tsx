@@ -14,6 +14,7 @@ import { z } from 'zod'
 import { useRegister, useEmailVerify, useResendEmailOtp } from '../../hooks/useAuth'
 import OtpModal from '../../components/auth/OtpModal'
 import { useToast } from '../../hooks/useToast'
+import { useAuthStore } from '../../store/authStore'
 
 
 type FormState = {
@@ -31,6 +32,7 @@ export default function Signup(): React.ReactElement {
   const { mutate: resendEmailOtp, isPending: isResending } = useResendEmailOtp()
   const [otpVisible, setOtpVisible] = useState(false)
   const toast = useToast()
+  const { setAuthData, setUserPref } = useAuthStore()
 
   const [form, setForm] = useState<FormState>({
     email: '',
@@ -70,7 +72,24 @@ export default function Signup(): React.ReactElement {
     register(
       { email: parsed.data.email, password: parsed.data.password, confirmPassword: parsed.data.confirmPassword, registerType: 'email' },
       {
-        onSuccess: () => { 
+        onSuccess: (res) => { 
+          console.log('[Signup] Registration success', res)
+          
+          // Handle the actual response structure - take token only from data
+          const token = res.data?.token || res.Token
+          const userPref = res.data?.userPref || res.UserPref
+          
+          if (token && userPref) {
+            // Remove "Bearer " prefix if present
+            const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token
+            setAuthData(cleanToken, userPref)
+            console.log('[Signup] Auth data stored in Zustand')
+          } else if (token) {
+            const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token
+            useAuthStore.getState().setToken(cleanToken)
+            console.log('[Signup] Token stored in Zustand')
+          }
+          
           setOtpVisible(true)
           toast.success('Account Created', 'Please verify your email address')
         },
@@ -84,12 +103,28 @@ export default function Signup(): React.ReactElement {
       { email: form.email, verificationCode: code },
       {
         onSuccess: (res) => {
+          console.log('[Signup] Email verified', res)
+          
+          // Handle the actual response structure - take token only from data
+          const token = res.data?.token
+          const userPref = res.data?.userPref
+          
+          if (token && userPref) {
+            // Remove "Bearer " prefix if present
+            const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token
+            setAuthData(cleanToken, userPref)
+            console.log('[Signup] Updated auth data stored in Zustand')
+          } else if (token) {
+            const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token
+            useAuthStore.getState().setToken(cleanToken)
+            console.log('[Signup] Updated token stored in Zustand')
+          }
+          
           setOtpVisible(false)
           navigation.navigate('Auth', { screen: 'Verification' })
           toast.success('Email Verified', 'Your account has been successfully verified')
-          console.log('[Signup] Email verified', res)
         },
-        onError: (err) => {
+        onError: (err: any) => {
           console.log('[Signup] Verification failed', err)
           toast.error('Verification Failed', String(err.response?.data?.msg))
         }
@@ -99,8 +134,8 @@ export default function Signup(): React.ReactElement {
 
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Header text='Create your account' />
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <Header text='Create your account' backButton={false} />
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <GradientInput label='Email' value={form.email} onChangeText={(v) => setForm((s) => ({ ...s, email: v }))} />
@@ -121,7 +156,7 @@ export default function Signup(): React.ReactElement {
 
         <View style={styles.bottomContainer}>
           <Text style={styles.text}>Already have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Auth', { screen: 'Signin' })}>
             <Text style={[styles.text, { textDecorationLine: 'underline' }]}>Sign In</Text>
           </TouchableOpacity>
         </View>

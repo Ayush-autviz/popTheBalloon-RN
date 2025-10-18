@@ -11,11 +11,12 @@ export type ApiError = AxiosError<ApiErrorShape>
 
 const client: AxiosInstance = axios.create({
   baseURL: 'https://2ppcf4sc-4000.inc1.devtunnels.ms/api',
-  timeout: 15000,
+ // timeout: 15000,
 })
 
 client.interceptors.request.use((config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   const token = useAuthStore.getState().token
+  console.log('token', token)
   if (token) {
     config.headers.set("Authorization", `Bearer ${token}`)
   }

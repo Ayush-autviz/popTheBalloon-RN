@@ -7,7 +7,10 @@ import {
   login,
   register, 
   emailVerify, 
-  resendEmailOtp 
+  resendEmailOtp,
+  updatePersonalInfo,
+  uploadPhoto,
+  updateBioAndVoice
 } from '../api/services/auth'
 import { useAuthStore } from '../store/authStore'
 import type { 
@@ -19,7 +22,13 @@ import type {
   RegisterPayload, 
   AuthResponse, 
   EmailVerifyPayload, 
-  ResendEmailOtpPayload 
+  ResendEmailOtpPayload,
+  PersonalInfoPayload,
+  PersonalInfoResponse,
+  PhotoUploadPayload,
+  PhotoUploadResponse,
+  BioAndVoicePayload,
+  BioAndVoiceResponse
 } from '../api/types/auth'
 
 export function useSendPhoneOtp(): UseMutationResult<AuthResponse, Error, SendPhoneOtpPayload> {
@@ -59,8 +68,8 @@ export function useRegister(): UseMutationResult<AuthResponse, Error, RegisterPa
 }
 
 export function useLogout(): () => void {
-  const setToken = useAuthStore((s) => s.setToken)
-  return () => setToken(null)
+  const clearAuth = useAuthStore((s) => s.clearAuth)
+  return () => clearAuth()
 }
 
 export function useEmailVerify(): UseMutationResult<AuthResponse, Error, EmailVerifyPayload> {
@@ -72,5 +81,23 @@ export function useEmailVerify(): UseMutationResult<AuthResponse, Error, EmailVe
 export function useResendEmailOtp(): UseMutationResult<AuthResponse, Error, ResendEmailOtpPayload> {
   return useMutation<AuthResponse, Error, ResendEmailOtpPayload>({
     mutationFn: (payload: ResendEmailOtpPayload) => resendEmailOtp(payload),
+  })
+}
+
+export function useUpdatePersonalInfo(): UseMutationResult<PersonalInfoResponse, Error, PersonalInfoPayload> {
+  return useMutation<PersonalInfoResponse, Error, PersonalInfoPayload>({
+    mutationFn: (payload: PersonalInfoPayload) => updatePersonalInfo(payload),
+  })
+}
+
+export function useUploadPhoto(): UseMutationResult<PhotoUploadResponse, Error, PhotoUploadPayload> {
+  return useMutation<PhotoUploadResponse, Error, PhotoUploadPayload>({
+    mutationFn: (payload: PhotoUploadPayload) => uploadPhoto(payload),
+  })
+}
+
+export function useUpdateBioAndVoice(): UseMutationResult<BioAndVoiceResponse, Error, BioAndVoicePayload> {
+  return useMutation<BioAndVoiceResponse, Error, BioAndVoicePayload>({
+    mutationFn: (payload: BioAndVoicePayload) => updateBioAndVoice(payload),
   })
 }

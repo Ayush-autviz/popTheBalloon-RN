@@ -86,7 +86,6 @@ const Button: React.FC<ButtonProps> = ({
       </>
     )
   }
-
   if (variant === 'gradient') {
     return (
       <LinearGradient
@@ -99,13 +98,14 @@ const Button: React.FC<ButtonProps> = ({
           onPress={onPress}
           activeOpacity={0.8}
           disabled={disabled || loading}
-          style={[styles.innerContainer, styles.innerContainerNoPadding,  innerStyle]}
+          style={[styles.innerContainer, innerStyle]} // ✅ Fixed here
         >
           {renderContent()}
         </TouchableOpacity>
       </LinearGradient>
     )
   }
+  
 
   if (variant === 'partner' || variant === 'outline') {
     const partnerImage = require('../../assets/icons/partner.png')
@@ -117,7 +117,7 @@ const Button: React.FC<ButtonProps> = ({
         style={[
           styles.gradientBorder,
           icon ? { borderRadius: 28 } : null,
-          rounded && { borderRadius: 30 },
+        //  rounded && { borderRadius: 30 },
           style,
         ]}
       >
@@ -130,6 +130,7 @@ const Button: React.FC<ButtonProps> = ({
             {
               backgroundColor: variant === 'outline' ? '#ffffff' : '#FEE9CB',
             },
+            //{margin:4},
             icon ? styles.icon : null,
             rounded && { borderRadius: 29, paddingVertical: 5 },
             innerStyle
@@ -167,7 +168,8 @@ const Button: React.FC<ButtonProps> = ({
 
 const styles = StyleSheet.create({
   base: {
-    paddingVertical: spacing.md,
+  //paddingVertical: spacing.xxxl,
+    height: 50,
     borderRadius: spacing.md,
     alignItems: 'center',
     justifyContent: 'center',
@@ -205,24 +207,36 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   gradientBorder: {
-    borderRadius: 10,
-    padding: 1,
-    marginVertical: spacing.sm,
-    zIndex: 1000,
+   // borderRadius: 10,
+    //padding: 1,
+    //marginVertical: spacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    // width: '100%',
+    // height: '100%', 
+
+  //  zIndex: 1000,
   },
   innerContainer: {
-    borderRadius: 9,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-    flexDirection: 'row',
+  //  borderRadius: 9,
+ //   paddingVertical: spacing.md,
+ //   alignItems: 'center',
+   flexDirection: 'row',
     gap: 5,
     justifyContent: 'center',
+    // width: '100%',
+    // height: '100%', 
+    alignItems: 'center',
+  //  width: '100%',
+    // marginRight: 4,
+    // marginBottom: 4,
   },
   innerContainerNoPadding: {
     paddingVertical: 0,
   },
   icon: {
-    paddingHorizontal: spacing.lg,
+   paddingHorizontal: spacing.lg,
     paddingVertical: spacing.lg,
     borderRadius: 28,
   },

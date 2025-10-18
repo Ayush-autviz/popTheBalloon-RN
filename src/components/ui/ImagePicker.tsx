@@ -52,17 +52,20 @@ const styles = StyleSheet.create({
     },
     box: {
         flex: 1,
+        height: 120, // Fixed height for consistent sizing
         borderRadius: spacing.lg,
         borderWidth: 1,
         borderColor: colors.border,
         justifyContent: 'center',
         alignItems: 'center',
-        borderStyle: 'dashed'
+        borderStyle: 'dashed',
+        overflow: 'hidden', // Ensure images don't overflow the rounded corners
     },
     image: {
         width: '100%',
         height: '100%',
         borderRadius: spacing.lg,
+        resizeMode: 'cover', // Ensure images cover the container properly
     },
 });
 

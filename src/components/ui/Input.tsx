@@ -16,6 +16,9 @@ const GradientInput: React.FC<GradientLabelInputProps> = ({
     label,
     value,
     onChangeText,
+    placeholder,
+    keyboardType,
+    ...props
 }) => {
     return (
         <LinearGradient
@@ -40,8 +43,10 @@ const GradientInput: React.FC<GradientLabelInputProps> = ({
                     style={styles.input}
                     value={value}
                     onChangeText={onChangeText}
-                    placeholder={`Enter ${label.toLowerCase()}`}
+                    placeholder={placeholder || `Enter ${label.toLowerCase()}`}
                     placeholderTextColor={colors.textSecondary}
+                    keyboardType={keyboardType}
+                    {...props}
                 />
                 </View>
             
@@ -52,12 +57,17 @@ const GradientInput: React.FC<GradientLabelInputProps> = ({
 const styles = StyleSheet.create({
     gradientBorder: {
         borderRadius: 10,
-        padding: 1.5,
+       padding: 2,
         marginVertical: spacing.sm,
+       
+    //   height: 65,
+       // marginHorizontal: spacing.sm,
     },
     innerContainer: {
         backgroundColor: '#fff',
         borderRadius: 9,
+        marginRight: 4,
+        marginBottom: 4,
     },
     text: {
         fontWeight: 600,

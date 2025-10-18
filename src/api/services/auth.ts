@@ -8,7 +8,13 @@ import type {
   LoginPayload,
   RegisterPayload, 
   EmailVerifyPayload, 
-  ResendEmailOtpPayload, 
+  ResendEmailOtpPayload,
+  PersonalInfoPayload,
+  PersonalInfoResponse,
+  PhotoUploadPayload,
+  PhotoUploadResponse,
+  BioAndVoicePayload,
+  BioAndVoiceResponse,
 } from '../types/auth'
 
 export async function sendPhoneOtp(payload: SendPhoneOtpPayload): Promise<AuthResponse> {
@@ -48,6 +54,37 @@ export async function emailVerify(payload: EmailVerifyPayload): Promise<AuthResp
 
 export async function resendEmailOtp(payload: ResendEmailOtpPayload): Promise<AuthResponse> {
   const { data } = await client.post<AuthResponse>('/dating/auth/resend-email-verification', payload)
+  return data
+}
+
+export async function updatePersonalInfo(payload: PersonalInfoPayload): Promise<PersonalInfoResponse> {
+  const { data } = await client.post<PersonalInfoResponse>('/dating/profile/personal-info', payload)
+  return data
+}
+
+export async function uploadPhoto(payload: PhotoUploadPayload | FormData): Promise<PhotoUploadResponse> {
+  // For FormData, let axios set the Content-Type automatically
+  // For regular objects, set JSON content type
+  const config = payload instanceof FormData ? {} : {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+
+  const { data } = await client.post<PhotoUploadResponse>('/dating/profile/upload-photo', payload, config)
+  return data
+}
+
+export async function updateBioAndVoice(payload: BioAndVoicePayload | FormData): Promise<BioAndVoiceResponse> {
+  // For FormData, let axios set the Content-Type automatically
+  // For regular objects, set JSON content type
+  const config = payload instanceof FormData ? {} : {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+
+  const { data } = await client.post<BioAndVoiceResponse>('/dating/profile/bio-and-voice', payload, config)
   return data
 }
 

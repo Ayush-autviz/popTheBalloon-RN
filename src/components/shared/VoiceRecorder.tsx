@@ -180,7 +180,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
           style={styles.recordButton}
         />
         
-        {state === 'recording' && (
+        {/* {state === 'recording' && (
           <Button
             variant="outline"
             text="Pause"
@@ -188,7 +188,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
             disabled={isLoading}
             style={styles.pauseButton}
           />
-        )}
+        )} */}
         
         {(state === 'paused' || recordingPath) && (
           <Button
@@ -221,15 +221,16 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: spacing.sm,
     marginTop: spacing.md,
   },
   recordButton: {
-    paddingHorizontal: spacing.xl,
+   // paddingHorizontal: spacing.xl,
     borderRadius: spacing.xxl,
+   //width: '100%',
   },
   pauseButton: {
     paddingHorizontal: spacing.lg,

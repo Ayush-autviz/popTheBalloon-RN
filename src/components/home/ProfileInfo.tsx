@@ -30,10 +30,10 @@ export default function ProfileCard() {
         </View>
 
         <View style={styles.buttonRow}>
-          <Button variant='outline' icon={<X color={colors.textTertiary} />} />
-          <Button variant='gradient' icon={<SvgXml xml={PopIcon} />} style={{paddingHorizontal: spacing.xl, paddingVertical: spacing.xl, borderRadius: spacing.jumbo}} />
-          
-          <Button variant='outline' icon={<Star fill={'#EFAC4E'}  color={'#EFAC4E'}/>} />
+          <Button variant='outline' icon={<X color={colors.textTertiary} />} style={{ width: 70, height: 70, borderRadius: 35}} innerStyle={{borderRadius:999,width: 67,height: 67}} />
+          <Button variant='gradient' icon={<SvgXml xml={PopIcon} />} style={{ width: 70, height: 70, borderRadius: 35}} />
+          <Button variant='outline' icon={<Star fill={'#EFAC4E'}  color={'#EFAC4E'}/>} style={{ width: 70, height: 70, borderRadius: 35}} innerStyle={{borderRadius:999,width: 67,height: 67}} />
+          {/* <Button variant='outline' icon={<Star fill={'#EFAC4E'}  color={'#EFAC4E'}/>} /> */}
  
           
         </View>

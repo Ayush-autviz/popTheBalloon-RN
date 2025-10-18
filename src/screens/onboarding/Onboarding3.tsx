@@ -9,12 +9,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import typography from '../../constants/typography';
 import { useNavigation } from '@react-navigation/native';
 import { Check } from 'lucide-react-native';
+import { useAuthStore } from '../../store/authStore';
 
 export default function Partners(): React.ReactElement {
     const colors = ['#FEFEFE', '#EFEFFF']
     const navigation = useNavigation<any>()
+    const { setOnboardingCompleted } = useAuthStore()
     const data = imageOverlayData[0];
     const handleStart = () => {
+        setOnboardingCompleted(true)
         navigation.navigate('Auth', { screen: 'UserDetails' })
     }
 

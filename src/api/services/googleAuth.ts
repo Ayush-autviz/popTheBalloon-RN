@@ -1,5 +1,4 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
 import type { GoogleSignInResult } from '../types/auth';
 
 // Configure Google Sign-In
@@ -26,18 +25,17 @@ export async function signInWithGoogle(): Promise<GoogleSignInResult> {
     }
 
     // Create a Google credential with the token
-    const googleCredential = GoogleAuthProvider.credential(idToken);
+   // const googleCredential = GoogleAuthProvider.credential(idToken);
 
     // Sign-in the user with the credential
-    const firebaseUser = await signInWithCredential(getAuth(), googleCredential);
+   // const firebaseUser = await signInWithCredential(getAuth(), googleCredential);
     
-    return {
+     return {
       success: true,
       user: {
-        id: firebaseUser.user.uid,
-        email: firebaseUser.user.email || '',
-        name: firebaseUser.user.displayName || '',
-        photo: firebaseUser.user.photoURL || undefined,
+        id: '123',
+        email: 'test@test.com',
+        name: 'Test User',
       },
     };
   } catch (error) {
