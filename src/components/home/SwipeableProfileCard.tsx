@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -54,16 +54,18 @@ export default function SwipeableProfileCard({
     }
   }, [isTopCard, position, rotate, scale, opacity]);
 
-  const panResponder = useRef(
+  const panResponder = useMemo(() => 
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gesture) => {
         // Only allow swipe on top card and if there's meaningful movement
-        return isTopCard && (Math.abs(gesture.dx) > 2 || Math.abs(gesture.dy) > 2);
+        const shouldSet = isTopCard && (Math.abs(gesture.dx) > 2 || Math.abs(gesture.dy) > 2);
+        console.log('onMoveShouldSetPanResponder', { isTopCard, dx: gesture.dx, dy: gesture.dy, shouldSet });
+        return shouldSet;
       },
       onPanResponderGrant: () => {
         position.setOffset({
-          x: position.x._value,
-          y: position.y._value,
+          x: (position.x as any)._value,
+          y: (position.y as any)._value,
         });
         position.setValue({ x: 0, y: 0 });
       },
@@ -111,8 +113,8 @@ export default function SwipeableProfileCard({
         // Return to center
         animateCardBack();
       },
-    })
-  ).current;
+    }), [isTopCard, profile._id, onSwipeLeft, onSwipeRight, onSwipeUp, position, rotate, scale]
+  );
 
   const animateCardOut = (direction: 'left' | 'right' | 'up') => {
     const toValue = direction === 'up' 

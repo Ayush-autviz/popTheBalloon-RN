@@ -30,7 +30,6 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
   const [showMatchScreen, setShowMatchScreen] = useState(false);
   const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
   const [isSuperLikeMatch, setIsSuperLikeMatch] = useState(false);
-  const [isProcessingSwipe, setIsProcessingSwipe] = useState(false);
 
   const loadProfiles = useCallback(async () => {
     try {
@@ -52,13 +51,21 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
     loadProfiles();
   }, [loadProfiles]);
 
+  const moveToNextProfile = useCallback(() => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex >= profiles?.length) {
+      // No more profiles, trigger empty state
+      onEmpty?.();
+      // Reload profiles
+      loadProfiles();
+    } else {
+      setCurrentIndex(nextIndex);
+    }
+  }, [currentIndex, profiles?.length, onEmpty, loadProfiles]);
+
   const handleSwipeAction = useCallback(async (action: 'ignore' | 'pop' | 'star', profileId: string) => {
-    if (isProcessingSwipe) return;
-    
     const currentProfile = profiles[currentIndex];
     if (!currentProfile) return;
-
-    setIsProcessingSwipe(true);
 
     try {
       let response: SwipeActionResponse;
@@ -86,17 +93,13 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
         onMatch?.(currentProfile, action === 'star');
       }
 
-      // Move to next profile after animation completes
-      setTimeout(() => {
-        moveToNextProfile();
-        setIsProcessingSwipe(false);
-      }, 350);
+      // Move to next profile immediately
+      moveToNextProfile();
     } catch (err) {
       console.error(`Error performing ${action}:`, err);
       Alert.alert('Error', `Failed to ${action} profile`);
-      setIsProcessingSwipe(false);
     }
-  }, [profiles, currentIndex, onMatch, isProcessingSwipe]);
+  }, [profiles, currentIndex, onMatch, moveToNextProfile]);
 
   const handleSwipeLeft = useCallback((profileId: string) => {
     handleSwipeAction('ignore', profileId);
@@ -109,18 +112,6 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
   const handleSwipeUp = useCallback((profileId: string) => {
     handleSwipeAction('star', profileId);
   }, [handleSwipeAction]);
-
-  const moveToNextProfile = useCallback(() => {
-    const nextIndex = currentIndex + 1;
-    if (nextIndex >= profiles?.length) {
-      // No more profiles, trigger empty state
-      onEmpty?.();
-      // Reload profiles
-      loadProfiles();
-    } else {
-      setCurrentIndex(nextIndex);
-    }
-  }, [currentIndex, profiles?.length, onEmpty, loadProfiles]);
 
   const handleRewind = useCallback(async () => {
     if (swipeHistory.length === 0) {
@@ -215,6 +206,7 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
         {visibleProfiles.map((profile, index) => {
           const isTopCard = index === 0;
           const cardIndex = currentIndex + index;
+          console.log('Rendering card', { profileName: profile.firstName, index, isTopCard, cardIndex, currentIndex });
           
           return (
             <View 
