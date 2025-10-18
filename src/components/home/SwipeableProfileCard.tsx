@@ -44,9 +44,22 @@ export default function SwipeableProfileCard({
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
+  // Reset animation values when card becomes top card
+  useEffect(() => {
+    if (isTopCard) {
+      position.setValue({ x: 0, y: 0 });
+      rotate.setValue(0);
+      scale.setValue(1);
+      opacity.setValue(1);
+    }
+  }, [isTopCard, position, rotate, scale, opacity]);
+
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: () => isTopCard,
+      onMoveShouldSetPanResponder: (_, gesture) => {
+        // Only allow swipe on top card and if there's meaningful movement
+        return isTopCard && (Math.abs(gesture.dx) > 2 || Math.abs(gesture.dy) > 2);
+      },
       onPanResponderGrant: () => {
         position.setOffset({
           x: position.x._value,
@@ -125,14 +138,20 @@ export default function SwipeableProfileCard({
       Animated.spring(position, {
         toValue: { x: 0, y: 0 },
         useNativeDriver: true,
+        friction: 8,
+        tension: 40,
       }),
       Animated.spring(rotate, {
         toValue: 0,
         useNativeDriver: true,
+        friction: 8,
+        tension: 40,
       }),
       Animated.spring(scale, {
         toValue: 1,
         useNativeDriver: true,
+        friction: 8,
+        tension: 40,
       }),
     ]).start();
   };
@@ -189,7 +208,7 @@ export default function SwipeableProfileCard({
           opacity: opacity,
         },
       ]}
-      {...panResponder.panHandlers}
+      {...(isTopCard ? panResponder.panHandlers : {})}
     >
       <ImageBackground
         source={
@@ -200,21 +219,25 @@ export default function SwipeableProfileCard({
         style={styles.image}
         imageStyle={{ borderRadius: 20 }}
       >
-        {/* Swipe indicators */}
-        <Animated.View style={[styles.swipeIndicator, styles.leftIndicator, { opacity: leftOpacity }]}>
-          <X size={60} color="#ff4444" />
-          <Text style={styles.indicatorText}>IGNORE</Text>
-        </Animated.View>
+        {/* Swipe indicators - only show on top card */}
+        {isTopCard && (
+          <>
+            <Animated.View style={[styles.swipeIndicator, styles.leftIndicator, { opacity: leftOpacity }]}>
+              <X size={60} color="#ff4444" />
+              <Text style={styles.indicatorText}>IGNORE</Text>
+            </Animated.View>
 
-        <Animated.View style={[styles.swipeIndicator, styles.rightIndicator, { opacity: rightOpacity }]}>
-          <Check size={60} color="#4CAF50" />
-          <Text style={styles.indicatorText}>LIKE</Text>
-        </Animated.View>
+            <Animated.View style={[styles.swipeIndicator, styles.rightIndicator, { opacity: rightOpacity }]}>
+              <Check size={60} color="#4CAF50" />
+              <Text style={styles.indicatorText}>LIKE</Text>
+            </Animated.View>
 
-        <Animated.View style={[styles.swipeIndicator, styles.upIndicator, { opacity: upOpacity }]}>
-          <Star size={60} color="#FFD700" />
-          <Text style={styles.indicatorText}>SUPER LIKE</Text>
-        </Animated.View>
+            <Animated.View style={[styles.swipeIndicator, styles.upIndicator, { opacity: upOpacity }]}>
+              <Star size={60} color="#FFD700" />
+              <Text style={styles.indicatorText}>SUPER LIKE</Text>
+            </Animated.View>
+          </>
+        )}
 
         {/* Profile info overlay */}
         <View style={styles.infoContainer}>
@@ -232,29 +255,31 @@ export default function SwipeableProfileCard({
           </Text>
         </View>
 
-        {/* Action buttons */}
-        <View style={styles.buttonRow}>
-          <TouchableOpacity
-            style={[styles.actionButton, styles.ignoreButton]}
-            onPress={() => onButtonPress('ignore', profile._id)}
-          >
-            <X color={colors.textTertiary} size={24} />
-          </TouchableOpacity>
+        {/* Action buttons - only functional on top card */}
+        {isTopCard && (
+          <View style={styles.buttonRow}>
+            <TouchableOpacity
+              style={[styles.actionButton, styles.ignoreButton]}
+              onPress={() => onButtonPress('ignore', profile._id)}
+            >
+              <X color={colors.textTertiary} size={24} />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.actionButton, styles.popButton]}
-            onPress={() => onButtonPress('pop', profile._id)}
-          >
-            <SvgXml xml={PopIcon} width={24} height={24} />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.actionButton, styles.popButton]}
+              onPress={() => onButtonPress('pop', profile._id)}
+            >
+              <SvgXml xml={PopIcon} width={24} height={24} />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.actionButton, styles.starButton]}
-            onPress={() => onButtonPress('star', profile._id)}
-          >
-            <Star fill="#EFAC4E" color="#EFAC4E" size={24} />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={[styles.actionButton, styles.starButton]}
+              onPress={() => onButtonPress('star', profile._id)}
+            >
+              <Star fill="#EFAC4E" color="#EFAC4E" size={24} />
+            </TouchableOpacity>
+          </View>
+        )}
       </ImageBackground>
     </Animated.View>
   );
@@ -262,9 +287,8 @@ export default function SwipeableProfileCard({
 
 const styles = StyleSheet.create({
   card: {
-    position: 'absolute',
     width: screenWidth - spacing.screenPadding * 2,
-    height: 450, // Fixed height instead of screenHeight * 0.7
+    height: 450,
     borderRadius: 20,
     backgroundColor: '#fff',
     shadowColor: '#000',

@@ -30,14 +30,15 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
   const [showMatchScreen, setShowMatchScreen] = useState(false);
   const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
   const [isSuperLikeMatch, setIsSuperLikeMatch] = useState(false);
+  const [isProcessingSwipe, setIsProcessingSwipe] = useState(false);
 
   const loadProfiles = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
       const response = await discoverProfiles({ limit: 10 });
-        console.log('response', response);
-        setProfiles(response.data.profiles || []);
+      console.log('response', response);
+      setProfiles(response.data.profiles || []);
       setCurrentIndex(0);
     } catch (err) {
       setError('Failed to load profiles');
@@ -52,8 +53,12 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
   }, [loadProfiles]);
 
   const handleSwipeAction = useCallback(async (action: 'ignore' | 'pop' | 'star', profileId: string) => {
+    if (isProcessingSwipe) return;
+    
     const currentProfile = profiles[currentIndex];
     if (!currentProfile) return;
+
+    setIsProcessingSwipe(true);
 
     try {
       let response: SwipeActionResponse;
@@ -72,7 +77,7 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
 
       // Add to swipe history
       setSwipeHistory(prev => [...prev, { profile: currentProfile, action }]);
-
+      console.log('response', response);
       // Check for match
       if (response.isMatch) {
         setMatchedProfile(currentProfile);
@@ -81,13 +86,17 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
         onMatch?.(currentProfile, action === 'star');
       }
 
-      // Move to next profile
-      moveToNextProfile();
+      // Move to next profile after animation completes
+      setTimeout(() => {
+        moveToNextProfile();
+        setIsProcessingSwipe(false);
+      }, 350);
     } catch (err) {
       console.error(`Error performing ${action}:`, err);
       Alert.alert('Error', `Failed to ${action} profile`);
+      setIsProcessingSwipe(false);
     }
-  }, [profiles, currentIndex, onMatch]);
+  }, [profiles, currentIndex, onMatch, isProcessingSwipe]);
 
   const handleSwipeLeft = useCallback((profileId: string) => {
     handleSwipeAction('ignore', profileId);
@@ -178,8 +187,8 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
     );
   }
 
-  const currentProfile = profiles[currentIndex];
-  const nextProfile = profiles[currentIndex + 1];
+  // Get visible cards for stacking effect
+  const visibleProfiles = profiles.slice(currentIndex, currentIndex + 3);
 
   return (
     <View style={styles.container}>
@@ -202,33 +211,38 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
 
       {/* Profile cards stack */}
       <View style={styles.cardContainer}>
-        {/* Next card (background) */}
-        {nextProfile && (
-          <View style={[styles.card, styles.nextCard]}>
-            <SwipeableProfileCard
-              profile={nextProfile}
-              onSwipeLeft={() => {}}
-              onSwipeRight={() => {}}
-              onSwipeUp={() => {}}
-              onButtonPress={() => {}}
-              isTopCard={false}
-            />
-          </View>
-        )}
-
-        {/* Current card (foreground) */}
-        {currentProfile && (
-          <View style={[styles.card, styles.currentCard]}>
-            <SwipeableProfileCard
-              profile={currentProfile}
-              onSwipeLeft={handleSwipeLeft}
-              onSwipeRight={handleSwipeRight}
-              onSwipeUp={handleSwipeUp}
-              onButtonPress={handleSwipeAction}
-              isTopCard={true}
-            />
-          </View>
-        )}
+        {/* Render cards from back to front */}
+        {visibleProfiles.map((profile, index) => {
+          const isTopCard = index === 0;
+          const cardIndex = currentIndex + index;
+          
+          return (
+            <View 
+              key={`${profile._id}-${cardIndex}`}
+              style={[
+                styles.card,
+                {
+                  zIndex: visibleProfiles.length - index,
+                  transform: [
+                    { scale: 1 - (index * 0.03) },
+                    { translateY: index * -10 },
+                    { rotate: index === 1 ? '-3deg' : index === 2 ? '3deg' : '0deg' }
+                  ],
+                  opacity: 1 - (index * 0.2),
+                },
+              ]}
+            >
+              <SwipeableProfileCard
+                profile={profile}
+                onSwipeLeft={handleSwipeLeft}
+                onSwipeRight={handleSwipeRight}
+                onSwipeUp={handleSwipeUp}
+                onButtonPress={handleSwipeAction}
+                isTopCard={isTopCard}
+              />
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -236,7 +250,7 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 450, // Fixed height to match card height
+    height: 450,
     position: 'relative',
   },
   loadingContainer: {
@@ -311,7 +325,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardContainer: {
-    height: 450, // Fixed height to match container
+    height: 450,
     position: 'relative',
   },
   card: {
@@ -320,13 +334,5 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-  },
-  currentCard: {
-    zIndex: 2,
-  },
-  nextCard: {
-    zIndex: 1,
-    transform: [{ scale: 0.95 }],
-    opacity: 0.8,
   },
 });
