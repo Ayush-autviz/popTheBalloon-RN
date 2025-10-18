@@ -76,8 +76,8 @@ export default function Signup(): React.ReactElement {
           console.log('[Signup] Registration success', res)
           
           // Handle the actual response structure - take token only from data
-          const token = res.data?.token || res.Token
-          const userPref = res.data?.userPref || res.UserPref
+          const token = res.auth?.token || res.data?.token
+          const userPref = res.data?.userPref
           
           if (token && userPref) {
             // Remove "Bearer " prefix if present
@@ -106,7 +106,7 @@ export default function Signup(): React.ReactElement {
           console.log('[Signup] Email verified', res)
           
           // Handle the actual response structure - take token only from data
-          const token = res.data?.token
+          const token = res.auth?.token || res.data?.token
           const userPref = res.data?.userPref
           
           if (token && userPref) {

@@ -35,9 +35,13 @@ export type Profile = {
 };
 
 export type DiscoverProfilesResponse = {
-  profiles: Profile[];
-  hasMore: boolean;
-  totalCount: number;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    profiles: Profile[];
+    hasMore: boolean;
+    totalCount: number;
+  };
 };
 
 export type SwipeActionRequest = {
@@ -45,30 +49,42 @@ export type SwipeActionRequest = {
 };
 
 export type SwipeActionResponse = {
-  action: string;
-  message: string;
-  isMatch?: boolean;
-  matchId?: string;
-  dailyUsage: {
-    swipesUsed: number;
-    popsUsed: number;
-    superLikesUsed: number;
-    rewindsUsed: number;
-  };
-  limits: {
-    maxSwipes: number;
-    maxPops: number;
-    maxSuperLikes: number;
-    maxRewinds: number;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    action: string;
+    message: string;
+    isMatch?: boolean;
+    matchId?: string;
+    dailyUsage: {
+      swipesUsed: number;
+      popsUsed: number;
+      superLikesUsed: number;
+      rewindsUsed: number;
+    };
+    limits: {
+      maxSwipes: number;
+      maxPops: number;
+      maxSuperLikes: number;
+      maxRewinds: number;
+    };
   };
 };
 
 export type RewindResponse = {
-  success: boolean;
-  message: string;
-  profile?: Profile;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    success: boolean;
+    message: string;
+    profile?: Profile;
+  };
 };
 
 export type UserProfileResponse = {
-  profile: Profile;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    profile: Profile;
+  };
 };

@@ -71,8 +71,8 @@ export default function Verification() {
           console.log('[Verification] OTP verification success', res)
           
           // Handle the actual response structure - take token only from data
-          const token = res.data?.token || res.Token
-          const userPref = res.data?.userPref || res.userPref
+          const token = res.auth?.token || res.data?.token
+          const userPref = res.data?.userPref
           
           if (token && userPref) {
             // Remove "Bearer " prefix if present

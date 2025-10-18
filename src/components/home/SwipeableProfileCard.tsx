@@ -287,7 +287,7 @@ export default function SwipeableProfileCard({
 
 const styles = StyleSheet.create({
   card: {
-    width: screenWidth - spacing.screenPadding * 2,
+    width: screenWidth - spacing.screenPadding * 2 - 20,
     height: 450,
     borderRadius: 20,
     backgroundColor: '#fff',

@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   profileSection: {
     marginTop: spacing.lg,
     marginBottom: spacing.xlarge,
+    marginHorizontal: 10,
   },
   sectionTitle: {
     fontSize: 24,

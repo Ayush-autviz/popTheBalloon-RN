@@ -7,21 +7,13 @@ export type UserPref = {
 };
 
 export type AuthResponse = { 
-  Token?: string;
-  UserPref?: UserPref;
-  emailVerificationRequired?: boolean;
-  phoneVerified?: boolean;
-  message?: string;
-  registrationStep?: number;
-  userPref?: UserPref;
-  emailVerified?: boolean;
-  msg?: string; 
-  auth?: { 
+  msg: string;
+  auth: { 
     success: boolean; 
-    statusCode: number;
+    statusCode?: number;
     token?: string;
   }; 
-  data?: {
+  data: {
     email?: string;
     firstName?: string;
     lastName?: string;
@@ -111,8 +103,12 @@ export type PersonalInfoPayload = {
 };
 
 export type PersonalInfoResponse = {
-  personalInfoUpdated: boolean;
-  registrationStep: number;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    personalInfoUpdated: boolean;
+    registrationStep: number;
+  };
 };
 
 // Photo Upload Types
@@ -122,10 +118,14 @@ export type PhotoUploadPayload = {
 } | FormData;
 
 export type PhotoUploadResponse = {
-  photoUploaded: boolean;
-  photoId: string;
-  s3Key: string;
-  registrationStep: number;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    photoUploaded: boolean;
+    photoId: string;
+    s3Key: string;
+    registrationStep: number;
+  };
 };
 
 // Bio and Voice Types
@@ -134,8 +134,12 @@ export type BioAndVoicePayload = {
 } | FormData;
 
 export type BioAndVoiceResponse = {
-  bioUpdated: boolean;
-  voiceRecordingUploaded: boolean;
-  registrationStep: number;
-  registrationCompleted: boolean;
+  msg: string;
+  auth: { success: boolean };
+  data: {
+    bioUpdated: boolean;
+    voiceRecordingUploaded: boolean;
+    registrationStep: number;
+    registrationCompleted: boolean;
+  };
 };

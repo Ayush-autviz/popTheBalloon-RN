@@ -38,7 +38,7 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
       setError(null);
       const response = await discoverProfiles({ limit: 10 });
       console.log('response', response);
-      setProfiles(response.data.profiles || []);
+      setProfiles(response.data?.profiles || []);
       setCurrentIndex(0);
     } catch (err) {
       setError('Failed to load profiles');
@@ -79,7 +79,7 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
       setSwipeHistory(prev => [...prev, { profile: currentProfile, action }]);
       console.log('response', response);
       // Check for match
-      if (response.isMatch) {
+      if (response.data?.isMatch) {
         setMatchedProfile(currentProfile);
         setIsSuperLikeMatch(action === 'star');
         setShowMatchScreen(true);
@@ -130,9 +130,9 @@ export default function ProfileStack({ onMatch, onEmpty }: ProfileStackProps) {
 
     try {
       const response = await rewindLastSwipe();
-      if (response.success && response.profile) {
+      if (response.data?.success && response.data?.profile) {
         // Add the profile back to the beginning of the stack
-        setProfiles(prev => [response.profile!, ...prev]);
+        setProfiles(prev => [response.data.profile!, ...prev]);
         setCurrentIndex(0);
         // Remove the last swipe from history
         setSwipeHistory(prev => prev.slice(0, -1));

@@ -94,10 +94,10 @@ export default function UserDetails(): React.ReactElement {
             onSuccess: (res) => {
                 console.log('[UserDetails] Personal info updated', res)
                 // Update user preferences with new registration step
-                if (res.registrationStep) {
+                if (res.data?.registrationStep) {
                     const currentUserPref = useAuthStore.getState().userPref
                     if (currentUserPref) {
-                        setUserPref({ ...currentUserPref, registrationStep: res.registrationStep })
+                        setUserPref({ ...currentUserPref, registrationStep: res.data.registrationStep })
                     }
                 }
                 toast.success('Success', 'Personal information updated successfully!')

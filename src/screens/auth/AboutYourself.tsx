@@ -52,14 +52,14 @@ export default function AboutYourself(): React.ReactElement {
         updateBioAndVoice(formData as any, {
             onSuccess: (res) => {
                 console.log('[AboutYourself] Bio and voice updated', res)
-                if (res.data.registrationStep) {
+                if (res.data?.registrationStep) {
                     const currentUserPref = useAuthStore.getState().userPref
                     if (currentUserPref) {
                         setUserPref({ ...currentUserPref, registrationStep: res.data.registrationStep })
                     }
                 }
 
-                if (res.registrationCompleted) {
+                if (res.data?.registrationCompleted) {
                     toast.success('Success', 'Registration completed successfully!')
                     // Navigate to main app (BottomTabsNavigator)
                     navigation.navigate('App')
